@@ -21,8 +21,8 @@ public class EntregaDAO {
      * @throws SQLException Si falla alguna consulta, si no se afectan filas, o si se gatilla un Rollback en MySQL.
      */
     public void guardar(Entrega entrega) throws SQLException {
-        String sqlEntrega = "INSERT INTO entrega (id_pedido, id_repartidor, fecha, hora) VALUES (?, ?, ?, ?)";
-        String sqlPedido = "UPDATE pedido SET estado = 'EN_REPARTO' WHERE id = ?";
+        String sqlEntrega = "INSERT INTO entregas (id_pedido, id_repartidor, fecha, hora) VALUES (?, ?, ?, ?)";
+        String sqlPedido = "UPDATE pedidos SET estado = 'EN_REPARTO' WHERE id = ?";
 
         Connection conn = null;
 
@@ -75,7 +75,7 @@ public class EntregaDAO {
      */
     public List<Entrega> listarTodos() throws SQLException {
         List<Entrega> listaEntregas = new ArrayList<>();
-        String sql = "SELECT * FROM entrega";
+        String sql = "SELECT * FROM entregas";
 
         try (Connection conn = ConexionBD.obtenerConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql);

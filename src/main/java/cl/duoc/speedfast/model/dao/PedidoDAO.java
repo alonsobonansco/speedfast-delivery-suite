@@ -25,7 +25,7 @@ public class PedidoDAO {
      * @throws SQLException Si ocurre un error de comunicación o restricciones sintácticas en MySQL.
      */
     public void guardar(Pedido pedido) throws SQLException {
-        String sql = "INSERT INTO pedido (direccion, tipo, estado) VALUES (?, ?, ?)";
+        String sql = "INSERT INTO pedidos (direccion, tipo, estado) VALUES (?, ?, ?)";
 
         try (Connection conn = ConexionBD.obtenerConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -47,7 +47,7 @@ public class PedidoDAO {
      */
     public List<Pedido> listarTodos() throws SQLException {
         List<Pedido> listaPedidos = new ArrayList<>();
-        String sql = "SELECT * FROM pedido";
+        String sql = "SELECT * FROM pedidos";
 
         try (Connection conn = ConexionBD.obtenerConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -83,7 +83,7 @@ public class PedidoDAO {
     public List<Pedido> listarPendientes() throws SQLException {
         List<Pedido> listaPendientes = new ArrayList<>();
 
-        String sql = "SELECT * FROM pedido WHERE estado = 'PENDIENTE'";
+        String sql = "SELECT * FROM pedidos WHERE estado = 'PENDIENTE'";
 
         try (Connection conn = ConexionBD.obtenerConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql);
@@ -117,7 +117,7 @@ public class PedidoDAO {
      * @throws SQLException Si falla la ejecución del comando UPDATE en el motor relacional.
      */
     public void actualizarEstado(int idPedido, EstadoPedido nuevoEstado) throws SQLException {
-        String sql = "UPDATE pedido SET estado = ? WHERE id = ?";
+        String sql = "UPDATE pedidos SET estado = ? WHERE id = ?";
 
         try (Connection conn = ConexionBD.obtenerConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

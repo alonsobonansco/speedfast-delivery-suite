@@ -23,7 +23,7 @@ public class RepartidorDAO {
      * @throws SQLException Si ocurre un error de comunicación, sintaxis o restricciones en MySQL.
      */
     public void guardar(Repartidor repartidor) throws SQLException {
-        String sql = "INSERT INTO repartidor (nombre) VALUES (?)";
+        String sql = "INSERT INTO repartidores (nombre) VALUES (?)";
 
         try (Connection conn = ConexionBD.obtenerConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -44,7 +44,7 @@ public class RepartidorDAO {
      */
     public List<Repartidor> listarTodos() throws SQLException {
         List<Repartidor> listaRepartidores = new ArrayList<>();
-        String sql = "SELECT * FROM repartidor";
+        String sql = "SELECT * FROM repartidores";
 
         try (Connection conn = ConexionBD.obtenerConexion();
              PreparedStatement pstmt = conn.prepareStatement(sql);
