@@ -24,7 +24,7 @@ public class PedidoDAO {
      * @param pedido Objeto entidad que contiene los datos del despacho a registrar.
      * @throws SQLException Si ocurre un error de comunicación o restricciones sintácticas en MySQL.
      */
-    public void guardar(Pedido pedido) throws SQLException {
+    public void create(Pedido pedido) throws SQLException {
         String sql = "INSERT INTO pedidos (direccion, tipo, estado) VALUES (?, ?, ?)";
 
         try (Connection conn = ConexionBD.obtenerConexion();
@@ -45,7 +45,7 @@ public class PedidoDAO {
      * @return Una {@link List} que contiene todos los objetos Pedido encontrados.
      * @throws SQLException Si falla la ejecución de la consulta de lectura en MySQL.
      */
-    public List<Pedido> listarTodos() throws SQLException {
+    public List<Pedido> readAll() throws SQLException {
         List<Pedido> listaPedidos = new ArrayList<>();
         String sql = "SELECT * FROM pedidos";
 

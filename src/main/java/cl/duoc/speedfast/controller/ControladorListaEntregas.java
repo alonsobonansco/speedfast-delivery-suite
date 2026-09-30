@@ -38,7 +38,7 @@ public class ControladorListaEntregas {
 
     private void obtenerDatosDesdeBD() {
         try {
-            listaEntregas = entregaDAO.listarTodos();
+            listaEntregas = entregaDAO.readAll();
 
         } catch (SQLException ex) {
             ventanaListaEntregas.mostrarMensajeError("Error al obtener los datos de la base de datos: " + ex.getMessage());

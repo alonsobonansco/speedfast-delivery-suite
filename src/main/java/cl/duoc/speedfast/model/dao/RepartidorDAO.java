@@ -22,7 +22,7 @@ public class RepartidorDAO {
      * @param repartidor Objeto entidad que contiene los datos del trabajador a registrar.
      * @throws SQLException Si ocurre un error de comunicación, sintaxis o restricciones en MySQL.
      */
-    public void guardar(Repartidor repartidor) throws SQLException {
+    public void create(Repartidor repartidor) throws SQLException {
         String sql = "INSERT INTO repartidores (nombre) VALUES (?)";
 
         try (Connection conn = ConexionBD.obtenerConexion();
@@ -42,7 +42,7 @@ public class RepartidorDAO {
      * @return Una {@link List} que contiene los objetos Repartidor encontrados en el sistema.
      * @throws SQLException Si falla la ejecución de la consulta de lectura en MySQL.
      */
-    public List<Repartidor> listarTodos() throws SQLException {
+    public List<Repartidor> readAll() throws SQLException {
         List<Repartidor> listaRepartidores = new ArrayList<>();
         String sql = "SELECT * FROM repartidores";
 

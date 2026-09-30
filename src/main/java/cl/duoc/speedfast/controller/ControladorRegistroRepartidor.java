@@ -43,7 +43,7 @@ public class ControladorRegistroRepartidor {
 
             Repartidor nuevoRepartidor = new Repartidor(nombreRepartidor);
 
-            repartidorDAO.guardar(nuevoRepartidor);
+            repartidorDAO.create(nuevoRepartidor);
 
             ventanaRegistroRepartidor.mostrarMensajeConfirmacion("Repartidor registrado correctamente.");
             ventanaRegistroRepartidor.limpiarFormulario();

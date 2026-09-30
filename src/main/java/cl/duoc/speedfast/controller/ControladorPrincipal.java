@@ -129,7 +129,7 @@ public class ControladorPrincipal {
         controladorRepartoPedidos.setLogListener(ventanaPrincipal::appendLog);
 
         try {
-            List<Pedido> pedidosBD = pedidoDAO.listarTodos();
+            List<Pedido> pedidosBD = pedidoDAO.readAll();
             controladorRepartoPedidos.iniciarSimulacionReparto(pedidosBD);
 
         } catch (SQLException ex) {

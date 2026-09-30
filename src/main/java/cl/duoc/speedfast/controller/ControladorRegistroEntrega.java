@@ -39,7 +39,7 @@ public class ControladorRegistroEntrega {
     private void cargarDatosEnComponentes() {
         try {
             ventanaRegistroEntrega.cargarPedidos(pedidoDAO.listarPendientes());
-            ventanaRegistroEntrega.cargarRepartidores(repartidorDAO.listarTodos());
+            ventanaRegistroEntrega.cargarRepartidores(repartidorDAO.readAll());
         } catch (SQLException ex) {
             ventanaRegistroEntrega.mostrarMensajeError("Error al cargar los datos: " + ex.getMessage());
         }
@@ -67,7 +67,7 @@ public class ControladorRegistroEntrega {
                     LocalTime.now()
             );
 
-            entregaDAO.guardar(nuevaEntrega);
+            entregaDAO.create(nuevaEntrega);
 
             ventanaRegistroEntrega.getComboPedidos().removeItem(pedidoSelec);
 

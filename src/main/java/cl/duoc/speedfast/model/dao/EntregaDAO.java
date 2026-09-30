@@ -20,7 +20,7 @@ public class EntregaDAO {
      * @param entrega Objeto entidad que contiene las llaves foráneas y marcas de tiempo a registrar.
      * @throws SQLException Si falla alguna consulta, si no se afectan filas, o si se gatilla un Rollback en MySQL.
      */
-    public void guardar(Entrega entrega) throws SQLException {
+    public void create(Entrega entrega) throws SQLException {
         String sqlEntrega = "INSERT INTO entregas (id_pedido, id_repartidor, fecha, hora) VALUES (?, ?, ?, ?)";
         String sqlPedido = "UPDATE pedidos SET estado = 'EN_REPARTO' WHERE id = ?";
 
@@ -73,7 +73,7 @@ public class EntregaDAO {
      * @return Una {@link List} que contiene los objetos Entrega estructurados.
      * @throws SQLException Si ocurre un error durante el escaneo del ResultSet en MySQL.
      */
-    public List<Entrega> listarTodos() throws SQLException {
+    public List<Entrega> readAll() throws SQLException {
         List<Entrega> listaEntregas = new ArrayList<>();
         String sql = "SELECT * FROM entregas";
 

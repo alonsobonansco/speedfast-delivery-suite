@@ -47,7 +47,7 @@ public class ControladorRegistroPedido {
 
             Pedido nuevoPedido = new Pedido(tipoPedidoEnum, direccionEntrega);
 
-            pedidoDAO.guardar(nuevoPedido);
+            pedidoDAO.create(nuevoPedido);
 
             ventanaRegistroPedido.mostrarMensajeConfirmacion("Pedido registrado exitosamente.");
             ventanaRegistroPedido.limpiarFormulario();

@@ -65,7 +65,7 @@ public class ControladorRepartoPedidos {
         }
 
         try {
-            List<Repartidor> listaRepartidores = repartidorDAO.listarTodos();
+            List<Repartidor> listaRepartidores = repartidorDAO.readAll();
 
             if (listaRepartidores.isEmpty()) {
                 escribirMensaje("[AVISO] No hay repartidores registrados en el sistema.");
@@ -107,7 +107,7 @@ public class ControladorRepartoPedidos {
      */
     public synchronized Pedido retirarPedidoPorRepartidor(int idRepartidor) {
         try {
-            List<Entrega> listaEntregas = entregaDAO.listarTodos();
+            List<Entrega> listaEntregas = entregaDAO.readAll();
 
             for (Pedido p : listaPedidosEnSimulacion) {
                 if (p.getEstadoPedido() == EstadoPedido.EN_REPARTO) {

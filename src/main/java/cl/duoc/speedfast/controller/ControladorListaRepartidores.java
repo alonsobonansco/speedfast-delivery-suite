@@ -42,7 +42,7 @@ public class ControladorListaRepartidores {
 
     private void obtenerDatosDesdeBD() {
         try {
-            this.listaRepartidores = repartidorDAO.listarTodos();
+            this.listaRepartidores = repartidorDAO.readAll();
 
         } catch (SQLException ex) {
             ventanaListaRepartidores.mostrarMensajeError("Error al obtener los datos: " + ex.getMessage());

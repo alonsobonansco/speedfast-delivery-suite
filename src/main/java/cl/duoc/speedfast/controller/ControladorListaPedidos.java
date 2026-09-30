@@ -42,7 +42,7 @@ public class ControladorListaPedidos {
 
     private void obtenerDatosDesdeBD() {
         try {
-            this.listaPedidos = pedidoDAO.listarTodos();
+            this.listaPedidos = pedidoDAO.readAll();
 
         } catch (SQLException ex) {
             ventanaListaPedidos.mostrarMensajeError("Error al obtener los datos de la base de datos: " + ex.getMessage());
