@@ -71,4 +71,15 @@ public class RepartidorDAO {
              pstmt.executeUpdate();
         }
     }
+
+    public void delete(int idRepartidor) throws SQLException {
+        String sql = "DELETE FROM repartidores WHERE id = ?";
+
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+             pstmt.setInt(1, idRepartidor);
+             pstmt.executeUpdate();
+        }
+    }
 }
