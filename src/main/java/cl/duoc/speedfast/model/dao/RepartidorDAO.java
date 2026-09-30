@@ -59,4 +59,16 @@ public class RepartidorDAO {
 
         return listaRepartidores;
     }
+
+    public void update(Repartidor repartidor) throws SQLException {
+        String sql = "UPDATE repartidores SET nombre = ? WHERE id = ?";
+
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+             pstmt.setString(1, repartidor.getNombreRepartidor());
+             pstmt.setInt(2, repartidor.getIdRepartidor());
+             pstmt.executeUpdate();
+        }
+    }
 }
