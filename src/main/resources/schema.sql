@@ -17,5 +17,5 @@ CREATE TABLE entregas (
     fecha DATE,
     hora TIME,
     FOREIGN KEY (id_pedido) REFERENCES pedidos(id),
-    FOREIGN KEY (id_repartidor) REFERENCES repartiidores (id)
+    FOREIGN KEY (id_repartidor) REFERENCES repartidores(id)
 );
