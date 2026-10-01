@@ -39,8 +39,7 @@ public class ControladorPrincipal {
     }
 
     private void inicializarListeners() {
-        ventanaPrincipal.addRegistrarPedidoMenuListener(e -> ejecutarRegistroPedido());
-        ventanaPrincipal.addListarPedidosMenuListener(e -> ejecutarListarPedidos());
+        ventanaPrincipal.addPedidosMenuListener(e -> ejecutarModuloPedidos());
         ventanaPrincipal.addRegistrarRepartidorMenuListener(e -> ejecutarRegistroRepartidor());
         ventanaPrincipal.addListarRepartidoresMenuListener(e -> ejecutarListarRepartidores());
         ventanaPrincipal.addRegistrarEntregaMenuListener(e -> ejecutarRegistroEntrega());
@@ -60,29 +59,17 @@ public class ControladorPrincipal {
         }
     }
 
-    private void ejecutarRegistroPedido() {
+    private void ejecutarModuloPedidos() {
         ventanaPrincipal.clearLog();
-        if (ventanaRegistroPedido == null || !ventanaRegistroPedido.isDisplayable()) {
-            ventanaRegistroPedido = new VentanaRegistroPedido();
-
-            new ControladorRegistroPedido(ventanaRegistroPedido);
-
-            ventanaRegistroPedido.setVisible(true);
-            ventanaRegistroPedido.toFront();
-            ventanaRegistroPedido.requestFocus();
-        }
-    }
-
-    private void ejecutarListarPedidos() {
         if (ventanaListaPedidos == null || !ventanaListaPedidos.isDisplayable()) {
             ventanaListaPedidos = new VentanaListaPedidos();
+
+            new ControladorListaPedidos(ventanaListaPedidos);
+
+            ventanaListaPedidos.setVisible(true);
+            ventanaListaPedidos.toFront();
+            ventanaListaPedidos.requestFocus();
         }
-
-        new ControladorListaPedidos(ventanaListaPedidos);
-
-        ventanaListaPedidos.setVisible(true);
-        ventanaListaPedidos.toFront();
-        ventanaListaPedidos.requestFocus();
     }
 
     private void ejecutarRegistroRepartidor() {

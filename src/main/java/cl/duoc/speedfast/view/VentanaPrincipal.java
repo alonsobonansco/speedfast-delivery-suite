@@ -14,8 +14,8 @@ public class VentanaPrincipal extends JFrame {
     private JLabel tituloLabel;
     private JTextArea logTextArea;
 
-    private JMenuItem itemRegistrarPedido;
-    private JMenuItem itemListarPedidos;
+    private JMenuItem itemPedidos;
+
     private JMenuItem itemRegistrarRepartidor;
     private JMenuItem itemListarRepartidores;
     private JMenuItem itemRegistrarEntrega;
@@ -24,7 +24,7 @@ public class VentanaPrincipal extends JFrame {
 
     public VentanaPrincipal() {
         setTitle("SpeedFast App");
-        setSize(700, 500);
+        setSize(750, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout());
@@ -61,11 +61,7 @@ public class VentanaPrincipal extends JFrame {
     private void inicializarMenuBar() {
         JMenuBar menuBar = new JMenuBar();
 
-        JMenu menuPedidos = new JMenu("Pedidos");
-        itemRegistrarPedido = new JMenuItem("Registrar Pedido");
-        itemListarPedidos = new JMenuItem("Listar Pedidos");
-        menuPedidos.add(itemRegistrarPedido);
-        menuPedidos.add(itemListarPedidos);
+        itemPedidos = new JMenuItem("Pedidos");
 
         JMenu menuRepartidores = new JMenu("Repartidores");
         itemRegistrarRepartidor = new JMenuItem("Registrar Repartidor");
@@ -81,7 +77,7 @@ public class VentanaPrincipal extends JFrame {
 
         itemIniciarRepartos = new JMenuItem("Iniciar Repartos");
 
-        menuBar.add(menuPedidos);
+        menuBar.add(itemPedidos);
         menuBar.add(menuRepartidores);
         menuBar.add(menuEntregas);
         menuBar.add(itemIniciarRepartos);
@@ -112,12 +108,8 @@ public class VentanaPrincipal extends JFrame {
         });
     }
 
-    public void addRegistrarPedidoMenuListener(ActionListener listener) {
-        itemRegistrarPedido.addActionListener(listener);
-    }
-
-    public void addListarPedidosMenuListener(ActionListener listener) {
-        itemListarPedidos.addActionListener(listener);
+    public void addPedidosMenuListener(ActionListener listener) {
+        itemPedidos.addActionListener(listener);
     }
 
     public void addRegistrarRepartidorMenuListener(ActionListener listener) {

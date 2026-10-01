@@ -17,11 +17,15 @@ public class VentanaListaPedidos extends JFrame {
     private JLabel tituloLabel;
     private JTable pedidosTable;
     private DefaultTableModel tablaModel;
+
+    private JButton agregarButton;
+    private JButton editarButton;
+    private JButton eliminarButton;
     private JButton atrasButton;
 
     public VentanaListaPedidos() {
         setTitle("SpeedFast App");
-        setSize(700, 500);
+        setSize(750, 550);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 15));
@@ -32,7 +36,7 @@ public class VentanaListaPedidos extends JFrame {
     }
 
     private void inicializarComponentes() {
-        tituloLabel = new JLabel("Lista de Pedidos Registrados", SwingConstants.CENTER);
+        tituloLabel = new JLabel("Administración de Pedidos", SwingConstants.CENTER);
         tituloLabel.setFont(new Font("Arial", Font.BOLD, 18));
         tituloLabel.setBorder(BorderFactory.createEmptyBorder(15, 10, 5, 10));
 
@@ -46,7 +50,11 @@ public class VentanaListaPedidos extends JFrame {
 
         pedidosTable = new JTable(tablaModel);
         pedidosTable.getTableHeader().setReorderingAllowed(false);
+        pedidosTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        agregarButton = new JButton("Agregar Nuevo");
+        editarButton = new JButton("Editar Seleccionado");
+        eliminarButton = new JButton("Eliminar Seleccionado");
         atrasButton = new JButton("Atrás");
     }
 
@@ -54,20 +62,17 @@ public class VentanaListaPedidos extends JFrame {
         add(tituloLabel, BorderLayout.NORTH);
 
         JScrollPane scrollPane = new JScrollPane(pedidosTable);
-
         JPanel panelTabla = new JPanel(new BorderLayout());
-        panelTabla.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
+        panelTabla.setBorder(BorderFactory.createEmptyBorder(0, 20, 10, 20));
         panelTabla.add(scrollPane, BorderLayout.CENTER);
-
         add(panelTabla, BorderLayout.CENTER);
 
-        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 15));
+        JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 20, 15));
+        panelBotones.add(agregarButton);
+        panelBotones.add(editarButton);
+        panelBotones.add(eliminarButton);
         panelBotones.add(atrasButton);
         add(panelBotones, BorderLayout.SOUTH);
-    }
-
-    public void addVolverAtrasListener(ActionListener listener) {
-        atrasButton.addActionListener(listener);
     }
 
     public void cerrarVentana() {
@@ -78,15 +83,35 @@ public class VentanaListaPedidos extends JFrame {
         tablaModel.setRowCount(0);
 
         for (Pedido p : listaPedidos) {
-            Object[] fila = {
+            tablaModel.addRow(new Object[]{
                     p.getIdPedido(),
                     p.getDireccionEntrega(),
-                    p.getTipoPedido(),
-                    p.getEstadoPedido()
-            };
-
-            tablaModel.addRow(fila);
+                    p.getTipoPedido().name(),
+                    p.getEstadoPedido().name()
+            });
         }
+    }
+
+    public int getIdPedidoSeleccionado() {
+        int filaSeleccionada = pedidosTable.getSelectedRow();
+        if (filaSeleccionada == -1) return -1;
+        return (int) tablaModel.getValueAt(filaSeleccionada, 0);
+    }
+
+    public void addAgregarListener(ActionListener listener) {
+        agregarButton.addActionListener(listener);
+    }
+
+    public void addEditarListener(ActionListener listener) {
+        editarButton.addActionListener(listener);
+    }
+
+    public void addEliminarListener(ActionListener listener) {
+        eliminarButton.addActionListener(listener);
+    }
+
+    public void addVolverAtrasListener(ActionListener listener) {
+        atrasButton.addActionListener(listener);
     }
 
     public void mostrarMensajeError(String mensaje) {

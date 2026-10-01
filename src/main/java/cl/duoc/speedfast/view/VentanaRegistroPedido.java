@@ -13,12 +13,14 @@ public class VentanaRegistroPedido extends JFrame {
     private JLabel tituloLabel;
     private JTextField direccionTextField;
     private JComboBox<String> tipoComboBox;
+    private JComboBox<String> estadoComboBox;
+
     private JButton guardarButton;
     private JButton atrasButton;
 
     public VentanaRegistroPedido() {
         setTitle("SpeedFast App");
-        setSize(700, 500);
+        setSize(750, 550);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
@@ -30,13 +32,12 @@ public class VentanaRegistroPedido extends JFrame {
 
     private void inicializarComponentes() {
         tituloLabel = new JLabel("Formulario de Registro de Pedidos", SwingConstants.CENTER);
-        tituloLabel.setFont(new Font("Arial", Font.BOLD, 18));
+        tituloLabel.setFont(new Font("Arial", Font.BOLD, 16));
         tituloLabel.setBorder(BorderFactory.createEmptyBorder(15, 10, 5, 10));
 
-        direccionTextField = new JTextField(15);
-
-        String[] tipos = {"Comida", "Encomienda", "Express"};
-        tipoComboBox = new JComboBox<>(tipos);
+        direccionTextField = new JTextField(20);
+        tipoComboBox = new JComboBox<>(new String[]{"COMIDA", "ENCOMIENDA", "EXPRESS"});
+        estadoComboBox = new JComboBox<>(new String[]{"PENDIENTE", "EN_REPARTO", "ENTREGADO"});
 
         guardarButton = new JButton("Guardar");
         atrasButton = new JButton("Atrás");
@@ -48,7 +49,7 @@ public class VentanaRegistroPedido extends JFrame {
         JPanel panelFormulario = new JPanel(new GridBagLayout());
         panelFormulario.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
         GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(15, 15, 15, 15);
+        gbc.insets = new Insets(10, 10, 10, 15);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         Font fuenteCampos = new Font("Arial", Font.PLAIN, 14);
@@ -81,6 +82,14 @@ public class VentanaRegistroPedido extends JFrame {
         panelBotones.add(guardarButton);
         panelBotones.add(atrasButton);
         add(panelBotones, BorderLayout.SOUTH);
+
+        atrasButton.addActionListener(e -> cerrarVentana());
+    }
+
+    public void prellenarFormulario(String direccion, String tipo, String estado) {
+        direccionTextField.setText(direccion);
+        tipoComboBox.setSelectedItem(tipo);
+        estadoComboBox.setSelectedItem(estado);
     }
 
     /**
@@ -102,6 +111,10 @@ public class VentanaRegistroPedido extends JFrame {
         return (String) tipoComboBox.getSelectedItem();
     }
 
+    public String getEstadoPedido() {
+        return (String) estadoComboBox.getSelectedItem();
+    }
+
     public void cerrarVentana() {
         this.dispose();
     }
@@ -110,6 +123,7 @@ public class VentanaRegistroPedido extends JFrame {
         guardarButton.addActionListener(listener);
     }
 
+    // ya no lo uso? tampoco los de ↓?
     public void addVolverAtrasListener(ActionListener listener) {
         atrasButton.addActionListener(listener);
     }
