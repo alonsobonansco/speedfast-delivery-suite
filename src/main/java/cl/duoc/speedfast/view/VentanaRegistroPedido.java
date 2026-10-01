@@ -76,6 +76,17 @@ public class VentanaRegistroPedido extends JFrame {
         tipoComboBox.setFont(fuenteCampos);
         panelFormulario.add(tipoComboBox, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        JLabel estadoLabel = new JLabel("Estado del Pedido:");
+        estadoLabel.setFont(fuenteCampos);
+        panelFormulario.add(estadoLabel, gbc);
+
+        gbc.gridx = 1;
+        gbc.gridy = 2;
+        estadoComboBox.setFont(fuenteCampos);
+        panelFormulario.add(estadoComboBox, gbc);
+
         add(panelFormulario, BorderLayout.CENTER);
 
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 15));

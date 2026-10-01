@@ -3,6 +3,7 @@ package cl.duoc.speedfast.controller;
 import cl.duoc.speedfast.model.dao.PedidoDAO;
 import cl.duoc.speedfast.model.entity.Pedido;
 import cl.duoc.speedfast.view.VentanaListaPedidos;
+import cl.duoc.speedfast.view.VentanaRegistroPedido;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,6 +35,9 @@ public class ControladorListaPedidos {
 
     private void inicializarListeners() {
         ventanaListaPedidos.addVolverAtrasListener(e -> ventanaListaPedidos.cerrarVentana());
+        ventanaListaPedidos.addAgregarListener(e -> abrirFormularioNuevo());
+        ventanaListaPedidos.addEditarListener(e -> abrirFormularioEditar());
+        ventanaListaPedidos.addEliminarListener(e -> procesarEliminacion());
     }
 
     private void cargarDatosEnTabla() {
@@ -48,5 +52,64 @@ public class ControladorListaPedidos {
             ventanaListaPedidos.mostrarMensajeError("Error al obtener los datos de la base de datos: " + ex.getMessage());
             listaPedidos = new ArrayList<>();
         }
+    }
+
+    private void abrirFormularioNuevo() {
+        VentanaRegistroPedido ventanaRegistroPedido = new VentanaRegistroPedido();
+        ventanaListaPedidos.setVisible(false);
+        new ControladorRegistroPedido(ventanaRegistroPedido, null, this);
+        ventanaRegistroPedido.setVisible(true);
+    }
+
+    private void abrirFormularioEditar() {
+        int idSel = ventanaListaPedidos.getIdPedidoSeleccionado();
+        if (idSel == -1) {
+            ventanaListaPedidos.mostrarMensajeError("Debe seleccionar un pedido para editar.");
+            return;
+
+
+        }
+
+        Pedido pedidoAEditar = listaPedidos.stream()
+                .filter(p -> p.getIdPedido() == idSel)
+                .findFirst().orElse(null);
+
+        if (pedidoAEditar == null) return;
+
+        ventanaListaPedidos.setVisible(false);
+
+        VentanaRegistroPedido ventanaRegistroPedido = new VentanaRegistroPedido();
+
+        new ControladorRegistroPedido(ventanaRegistroPedido, pedidoAEditar, this);
+        ventanaRegistroPedido.setVisible(true);
+    }
+
+    private void procesarEliminacion() {
+        int idSel = ventanaListaPedidos.getIdPedidoSeleccionado();
+        if (idSel == -1) {
+            ventanaListaPedidos.mostrarMensajeError("Debe seleccionar un pedido para eliminar.");
+            return;
+        }
+
+        // Es buena práctica pedir confirmación antes de eliminar un registro
+        boolean confirmacion = ventanaListaPedidos.confirmarEliminacion();
+
+        if (confirmacion) {
+            try {
+                pedidoDAO.delete(idSel);
+                obtenerDatosDesdeBD();
+                cargarDatosEnTabla();
+                ventanaListaPedidos.mostrarMensajeConfirmacion("Pedido eliminado correctamente.");
+
+            } catch (SQLException ex) {
+                ventanaListaPedidos.mostrarMensajeError("Error al eliminar el pedido: " + ex.getMessage());
+            }
+        }
+    }
+
+    public void refrescarYMostrar() {
+        obtenerDatosDesdeBD();
+        cargarDatosEnTabla();
+        ventanaListaPedidos.setVisible(true); // La lista del fondo vuelve a brillar
     }
 }

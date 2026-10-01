@@ -114,7 +114,21 @@ public class VentanaListaPedidos extends JFrame {
         atrasButton.addActionListener(listener);
     }
 
+    public void mostrarMensajeConfirmacion(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Información", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public void mostrarMensajeError(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public boolean confirmarEliminacion() {
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Está seguro de que desea eliminar el pedido seleccionado?",
+                "Confirmar Eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        return opcion == JOptionPane.YES_OPTION;
     }
 }

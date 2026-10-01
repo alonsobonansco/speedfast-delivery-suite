@@ -6,7 +6,7 @@ package cl.duoc.speedfast.model.entity;
  */
 public class Pedido {
 
-    private final TipoPedido tipoPedido;
+    private TipoPedido tipoPedido;
     private final int idPedido;
     private String direccionEntrega;
     private EstadoPedido estadoPedido = EstadoPedido.PENDIENTE;
@@ -37,7 +37,7 @@ public class Pedido {
      * @param direccionEntrega Dirección de destino proporcionada por el usuario.
      * @throws IllegalArgumentException Si el tipo de pedido es nulo o la dirección es inválida.
      */
-    public Pedido(TipoPedido tipoPedido, String direccionEntrega) {
+    public Pedido(String direccionEntrega, TipoPedido tipoPedido, EstadoPedido estadoPedido) {
         this.tipoPedido = validarTipoPedido(tipoPedido);
         this.idPedido = 0;
         setDireccionEntrega(direccionEntrega);
@@ -53,6 +53,10 @@ public class Pedido {
 
     public TipoPedido getTipoPedido() {
         return tipoPedido;
+    }
+
+    public void setTipoPedido(TipoPedido tipoPedido) {
+        this.tipoPedido = validarTipoPedido(tipoPedido);
     }
 
     public int getIdPedido() {
