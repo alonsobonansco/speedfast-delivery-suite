@@ -17,11 +17,15 @@ public class VentanaListaRepartidores extends JFrame {
     private JLabel tituloLabel;
     private JTable repartidoresTable;
     private DefaultTableModel tablaModel;
+
+    private JButton agregarButton;
+    private JButton editarButton;
+    private JButton eliminarButton;
     private JButton atrasButton;
 
     public VentanaListaRepartidores() {
         setTitle("SpeedFast App");
-        setSize(700, 500);
+        setSize(750, 550);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 15));
@@ -46,7 +50,11 @@ public class VentanaListaRepartidores extends JFrame {
 
         repartidoresTable = new JTable(tablaModel);
         repartidoresTable.getTableHeader().setReorderingAllowed(false);
+        repartidoresTable.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 
+        agregarButton = new JButton("Agregar Nuevo");
+        editarButton = new JButton("Editar Seleccionado");
+        eliminarButton = new JButton("Eliminar Seleccionado");
         atrasButton = new JButton("Atrás");
     }
 
@@ -54,16 +62,36 @@ public class VentanaListaRepartidores extends JFrame {
         add(tituloLabel, BorderLayout.NORTH);
 
         JScrollPane scrollPane = new JScrollPane(repartidoresTable);
-
         JPanel panelTabla = new JPanel(new BorderLayout());
         panelTabla.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
         panelTabla.add(scrollPane, BorderLayout.CENTER);
-
         add(panelTabla, BorderLayout.CENTER);
 
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 15));
+        panelBotones.add(agregarButton);
+        panelBotones.add(editarButton);
+        panelBotones.add(eliminarButton);
         panelBotones.add(atrasButton);
         add(panelBotones, BorderLayout.SOUTH);
+    }
+
+    public int getIdRepartidorSeleccionado() {
+        int filaSeleccionada = repartidoresTable.getSelectedRow();
+        if (filaSeleccionada == -1) return -1;
+        return (int) tablaModel.getValueAt(filaSeleccionada, 0);
+
+    }
+
+    public void addAgregarListener(ActionListener listener) {
+        agregarButton.addActionListener(listener);
+    }
+
+    public void addEditarListener(ActionListener listener) {
+        editarButton.addActionListener(listener);
+    }
+
+    public void addEliminarListener(ActionListener listener) {
+        eliminarButton.addActionListener(listener);
     }
 
     public void addVolverAtrasListener(ActionListener listener) {
@@ -87,7 +115,20 @@ public class VentanaListaRepartidores extends JFrame {
         }
     }
 
+    public void mostrarMensajeConfirmacion(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public void mostrarMensajeError(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public boolean confirmarEliminacion() {
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Está seguro de que desea eliminar el repartidor seleccionado?",
+                "Confirmar Eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+        return opcion == JOptionPane.YES_OPTION;
     }
 }

@@ -115,7 +115,7 @@ public class VentanaListaPedidos extends JFrame {
     }
 
     public void mostrarMensajeConfirmacion(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, "Información", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, mensaje, "Registro Exitoso", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void mostrarMensajeError(String mensaje) {

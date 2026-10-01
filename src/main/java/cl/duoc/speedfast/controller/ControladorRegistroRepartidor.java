@@ -15,14 +15,21 @@ public class ControladorRegistroRepartidor {
     private final VentanaRegistroRepartidor ventanaRegistroRepartidor;
     private final RepartidorDAO repartidorDAO = new RepartidorDAO();
 
+    private final Repartidor repartidorAEditar;
+    private final ControladorListaRepartidores controladorListaRepartidores;
+
     /**
      * Constructor principal que enlaza el formulario de ingreso de datos
      * y activa la suscripción reactiva para los eventos de los botones Guardar y Atrás.
      *
      * @param ventanaRegistroRepartidor Instancia activa del formulario visual de nuevo repartidor.
      */
-    public ControladorRegistroRepartidor(VentanaRegistroRepartidor ventanaRegistroRepartidor) {
+    public ControladorRegistroRepartidor(VentanaRegistroRepartidor ventanaRegistroRepartidor,
+                                         Repartidor repartidorAEditar,
+                                         ControladorListaRepartidores controladorListaRepartidores) {
         this.ventanaRegistroRepartidor = ventanaRegistroRepartidor;
+        this.repartidorAEditar = repartidorAEditar;
+        this.controladorListaRepartidores = controladorListaRepartidores;
 
         inicializarListeners();
     }
@@ -30,6 +37,14 @@ public class ControladorRegistroRepartidor {
     private void inicializarListeners() {
         ventanaRegistroRepartidor.addVolverAtrasListener(e -> ventanaRegistroRepartidor.cerrarVentana());
         ventanaRegistroRepartidor.addGuardarListener(e -> procesarGuardado());
+        ventanaRegistroRepartidor.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                if (controladorListaRepartidores != null) {
+                    controladorListaRepartidores.refrescarYMostrar();
+                }
+            }
+        });
     }
 
     private void procesarGuardado() {
@@ -41,12 +56,16 @@ public class ControladorRegistroRepartidor {
                 return;
             }
 
-            Repartidor nuevoRepartidor = new Repartidor(nombreRepartidor);
+            if (repartidorAEditar == null) {
+                Repartidor nuevoRepartidor = new Repartidor(nombreRepartidor);
+                repartidorDAO.create(nuevoRepartidor);
+                ventanaRegistroRepartidor.mostrarMensajeConfirmacion("Repartidor registrado correctamente.");
 
-            repartidorDAO.create(nuevoRepartidor);
-
-            ventanaRegistroRepartidor.mostrarMensajeConfirmacion("Repartidor registrado correctamente.");
-            ventanaRegistroRepartidor.limpiarFormulario();
+            } else {
+                repartidorAEditar.setNombreRepartidor(nombreRepartidor);
+                repartidorDAO.update(repartidorAEditar);
+                ventanaRegistroRepartidor.mostrarMensajeConfirmacion("Repartidor actualizado correctamente.");
+            }
 
         } catch (IllegalArgumentException e) {
             ventanaRegistroRepartidor.mostrarMensajeError(e.getMessage());

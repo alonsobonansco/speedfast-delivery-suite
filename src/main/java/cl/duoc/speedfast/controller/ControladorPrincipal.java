@@ -40,23 +40,10 @@ public class ControladorPrincipal {
 
     private void inicializarListeners() {
         ventanaPrincipal.addPedidosMenuListener(e -> ejecutarModuloPedidos());
-        ventanaPrincipal.addRegistrarRepartidorMenuListener(e -> ejecutarRegistroRepartidor());
-        ventanaPrincipal.addListarRepartidoresMenuListener(e -> ejecutarListarRepartidores());
+        ventanaPrincipal.addRepartidoresMenuListener(e -> ejecutarModuloRepartidores());
         ventanaPrincipal.addRegistrarEntregaMenuListener(e -> ejecutarRegistroEntrega());
         ventanaPrincipal.addListarEntregasMenuListener(e -> ejecutarListarEntregas());
         ventanaPrincipal.addIniciarRepartosMenuListener(e -> ejecutarIniciarEntregas());
-    }
-
-    private void ejecutarRegistroEntrega() {
-        if (ventanaRegistroEntrega == null || !ventanaRegistroEntrega.isDisplayable()) {
-            ventanaRegistroEntrega = new VentanaRegistroEntrega();
-
-            new ControladorRegistroEntrega(ventanaRegistroEntrega);
-
-            ventanaRegistroEntrega.setVisible(true);
-            ventanaRegistroEntrega.toFront();
-            ventanaRegistroEntrega.requestFocus();
-        }
     }
 
     private void ejecutarModuloPedidos() {
@@ -72,28 +59,29 @@ public class ControladorPrincipal {
         }
     }
 
-    private void ejecutarRegistroRepartidor() {
-        if (ventanaRegistroRepartidor == null || !ventanaRegistroRepartidor.isDisplayable()) {
-            ventanaRegistroRepartidor = new VentanaRegistroRepartidor();
-        }
-
-        new ControladorRegistroRepartidor(ventanaRegistroRepartidor);
-
-        ventanaRegistroRepartidor.setVisible(true);
-        ventanaRegistroRepartidor.toFront();
-        ventanaRegistroRepartidor.requestFocus();
-    }
-
-    private void ejecutarListarRepartidores() {
+    private void ejecutarModuloRepartidores() {
+        ventanaPrincipal.clearLog();
         if (ventanaListaRepartidores == null || !ventanaListaRepartidores.isDisplayable()) {
             ventanaListaRepartidores = new VentanaListaRepartidores();
+
+            new ControladorListaRepartidores(ventanaListaRepartidores);
+
+            ventanaListaRepartidores.setVisible(true);
+            ventanaListaRepartidores.toFront();
+            ventanaListaRepartidores.requestFocus();
         }
+    }
 
-        new ControladorListaRepartidores(ventanaListaRepartidores);
+    private void ejecutarRegistroEntrega() {
+        if (ventanaRegistroEntrega == null || !ventanaRegistroEntrega.isDisplayable()) {
+            ventanaRegistroEntrega = new VentanaRegistroEntrega();
 
-        ventanaListaRepartidores.setVisible(true);
-        ventanaListaRepartidores.toFront();
-        ventanaListaRepartidores.requestFocus();
+            new ControladorRegistroEntrega(ventanaRegistroEntrega);
+
+            ventanaRegistroEntrega.setVisible(true);
+            ventanaRegistroEntrega.toFront();
+            ventanaRegistroEntrega.requestFocus();
+        }
     }
 
     private void ejecutarListarEntregas() {

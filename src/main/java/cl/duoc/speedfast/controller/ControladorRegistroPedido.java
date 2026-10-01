@@ -27,7 +27,8 @@ public class ControladorRegistroPedido {
      * @param ventanaRegistroPedido Instancia activa del formulario visual de nuevo pedido.
      */
     public ControladorRegistroPedido(VentanaRegistroPedido ventanaRegistroPedido,
-                                     Pedido pedidoAEditar, ControladorListaPedidos controladorListaPedidos) {
+                                     Pedido pedidoAEditar,
+                                     ControladorListaPedidos controladorListaPedidos) {
         this.ventanaRegistroPedido = ventanaRegistroPedido;
         this.pedidoAEditar = pedidoAEditar;
         this.controladorListaPedidos = controladorListaPedidos;
@@ -76,6 +77,7 @@ public class ControladorRegistroPedido {
                 Pedido nuevoPedido = new Pedido(direccionEntrega, tipoPedidoEnum, estadoPedidoEnum);
                 pedidoDAO.create(nuevoPedido);
                 ventanaRegistroPedido.mostrarMensajeConfirmacion("Pedido registrado exitosamente.");
+
             } else {
                 pedidoAEditar.setDireccionEntrega(direccionEntrega);
                 pedidoAEditar.setTipoPedido(tipoPedidoEnum);

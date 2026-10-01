@@ -66,8 +66,6 @@ public class ControladorListaPedidos {
         if (idSel == -1) {
             ventanaListaPedidos.mostrarMensajeError("Debe seleccionar un pedido para editar.");
             return;
-
-
         }
 
         Pedido pedidoAEditar = listaPedidos.stream()
@@ -110,6 +108,6 @@ public class ControladorListaPedidos {
     public void refrescarYMostrar() {
         obtenerDatosDesdeBD();
         cargarDatosEnTabla();
-        ventanaListaPedidos.setVisible(true); // La lista del fondo vuelve a brillar
+        ventanaListaPedidos.setVisible(true);
     }
 }

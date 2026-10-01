@@ -13,7 +13,7 @@ import static cl.duoc.speedfast.model.entity.EstadoPedido.ENTREGADO;
  */
 public class Repartidor implements Runnable {
 
-    private final String nombreRepartidor;
+    private String nombreRepartidor;
     private int idRepartidor;
     private ControladorRepartoPedidos controladorRepartoPedidos;
 
@@ -76,6 +76,10 @@ public class Repartidor implements Runnable {
 
     public int getIdRepartidor() {
         return idRepartidor;
+    }
+
+    public void setNombreRepartidor(String nombreRepartidor) {
+        this.nombreRepartidor = validarNombreRepartidor(nombreRepartidor);
     }
 
     public String getNombreRepartidor() {

@@ -3,6 +3,7 @@ package cl.duoc.speedfast.controller;
 import cl.duoc.speedfast.model.dao.RepartidorDAO;
 import cl.duoc.speedfast.model.entity.Repartidor;
 import cl.duoc.speedfast.view.VentanaListaRepartidores;
+import cl.duoc.speedfast.view.VentanaRegistroRepartidor;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,6 +35,9 @@ public class ControladorListaRepartidores {
 
     private void inicializarListeners() {
         ventanaListaRepartidores.addVolverAtrasListener(e -> ventanaListaRepartidores.cerrarVentana());
+        ventanaListaRepartidores.addAgregarListener(e -> abrirFormularioNuevo());
+        ventanaListaRepartidores.addEditarListener(e -> abrirFormularioEditar());
+        ventanaListaRepartidores.addEliminarListener(e -> procesarEliminacion());
     }
 
     private void cargarDatosEnTabla() {
@@ -48,5 +52,63 @@ public class ControladorListaRepartidores {
             ventanaListaRepartidores.mostrarMensajeError("Error al obtener los datos: " + ex.getMessage());
             listaRepartidores = new ArrayList<>();
         }
+    }
+
+    private void abrirFormularioNuevo() {
+        VentanaRegistroRepartidor ventanaRegistroRepartidor = new VentanaRegistroRepartidor();
+        ventanaListaRepartidores.setVisible(false);
+        new ControladorRegistroRepartidor(ventanaRegistroRepartidor, null, this);
+        ventanaRegistroRepartidor.setVisible(true);
+    }
+
+    private void abrirFormularioEditar() {
+        int idSel = ventanaListaRepartidores.getIdRepartidorSeleccionado();
+        if (idSel == -1) {
+            ventanaListaRepartidores.mostrarMensajeError("Debe seleccionar un repartidor para editar.");
+            return;
+        }
+
+        Repartidor repartidorAEditar = listaRepartidores.stream()
+                .filter(r -> r.getIdRepartidor() == idSel)
+                .findFirst()
+                .orElse(null);
+
+        if (repartidorAEditar == null) return;
+
+        ventanaListaRepartidores.setVisible(false);
+
+        VentanaRegistroRepartidor ventanaRegistroRepartidor = new VentanaRegistroRepartidor();
+
+        new ControladorRegistroRepartidor(ventanaRegistroRepartidor, repartidorAEditar, this);
+        ventanaRegistroRepartidor.setVisible(true);
+    }
+
+    private void procesarEliminacion() {
+        int idSel = ventanaListaRepartidores.getIdRepartidorSeleccionado();
+        if (idSel == -1) {
+            ventanaListaRepartidores.mostrarMensajeError("Debe seleccionar un repartidor para eliminar.");
+            return;
+        }
+
+        boolean confirmacion = ventanaListaRepartidores.confirmarEliminacion();
+        // if (!confirmacion) return;
+
+        if (confirmacion) {
+            try {
+                repartidorDAO.delete(idSel);
+                obtenerDatosDesdeBD();
+                cargarDatosEnTabla();
+                ventanaListaRepartidores.mostrarMensajeConfirmacion("Repartidor eliminado correctamente.");
+
+            } catch (SQLException ex) {
+                ventanaListaRepartidores.mostrarMensajeError("Error al eliminar el repartidor: " + ex.getMessage());
+            }
+        }
+    }
+
+    public void refrescarYMostrar() {
+        obtenerDatosDesdeBD();
+        cargarDatosEnTabla();
+        ventanaListaRepartidores.setVisible(true);
     }
 }
