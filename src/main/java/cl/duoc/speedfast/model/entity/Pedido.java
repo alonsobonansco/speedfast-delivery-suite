@@ -9,7 +9,7 @@ public class Pedido {
     private TipoPedido tipoPedido;
     private final int idPedido;
     private String direccionEntrega;
-    private EstadoPedido estadoPedido = EstadoPedido.PENDIENTE;
+    private EstadoPedido estadoPedido;
 
     /**
      * Constructor para reconstruir instancias de pedidos existentes recuperados desde MySQL.
@@ -19,7 +19,7 @@ public class Pedido {
      * @param tipoPedido Clasificación del servicio (COMIDA, ENCOMIENDA, EXPRESS).
      * @throws IllegalArgumentException Si el ID es menor o igual a cero, o si los datos son nulos o vacíos.
      */
-    public Pedido(int idPedido, String direccionEntrega, TipoPedido tipoPedido) {
+    public Pedido(int idPedido, String direccionEntrega, TipoPedido tipoPedido, EstadoPedido estadoPedido) {
         if (idPedido <= 0) {
             throw new IllegalArgumentException("El ID del pedido debe ser válido.");
         }
@@ -27,6 +27,7 @@ public class Pedido {
         this.tipoPedido = validarTipoPedido(tipoPedido);
         this.idPedido = idPedido;
         setDireccionEntrega(direccionEntrega);
+        setEstadoPedido(estadoPedido);
     }
 
     /**
@@ -41,6 +42,7 @@ public class Pedido {
         this.tipoPedido = validarTipoPedido(tipoPedido);
         this.idPedido = 0;
         setDireccionEntrega(direccionEntrega);
+        setEstadoPedido(estadoPedido);
     }
 
     private TipoPedido validarTipoPedido(TipoPedido tipoPedido) {

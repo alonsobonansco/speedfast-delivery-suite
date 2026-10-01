@@ -62,9 +62,9 @@ public class PedidoDAO {
                 Pedido pedido = new Pedido(
                         rs.getInt("id"),
                         rs.getString("direccion"),
-                        tipoPedido);
+                        tipoPedido,
+                        estadoPedido);
 
-                pedido.setEstadoPedido(estadoPedido);
                 listaPedidos.add(pedido);
             }
         }
@@ -98,9 +98,9 @@ public class PedidoDAO {
                 Pedido pedido = new Pedido(
                         rs.getInt("id"),
                         rs.getString("direccion"),
-                        tipoPedido);
+                        tipoPedido,
+                        estadoPedido);
 
-                pedido.setEstadoPedido(estadoPedido);
                 listaPendientes.add(pedido);
             }
         }
