@@ -20,6 +20,7 @@ import java.time.LocalTime;
 public class ControladorRegistroEntrega {
 
     private final VentanaRegistroEntrega ventanaRegistroEntrega;
+    private final ControladorListaEntregas controladorListaEntregas;
     private final EntregaDAO entregaDAO = new EntregaDAO();
     private final PedidoDAO pedidoDAO = new PedidoDAO();
     private final RepartidorDAO repartidorDAO = new RepartidorDAO();
@@ -30,8 +31,11 @@ public class ControladorRegistroEntrega {
      *
      * @param ventanaRegistroEntrega Instancia activa del formulario visual de asignación.
      */
-    public ControladorRegistroEntrega(VentanaRegistroEntrega ventanaRegistroEntrega) {
+    public ControladorRegistroEntrega(VentanaRegistroEntrega ventanaRegistroEntrega,
+                                      ControladorListaEntregas controladorListaEntregas) {
         this.ventanaRegistroEntrega = ventanaRegistroEntrega;
+        this.controladorListaEntregas = controladorListaEntregas;
+
         inicializarListeners();
         cargarDatosEnComponentes();
     }
@@ -48,6 +52,14 @@ public class ControladorRegistroEntrega {
     private void inicializarListeners() {
         ventanaRegistroEntrega.addGuardarListener(e -> procesarAsignacion());
         ventanaRegistroEntrega.addVolverAtrasListener(e -> ventanaRegistroEntrega.cerrarVentana());
+        ventanaRegistroEntrega.addWindowListener(new java.awt.event.WindowAdapter() {
+            @Override
+            public void windowClosed(java.awt.event.WindowEvent e) {
+                if (controladorListaEntregas != null) {
+                    controladorListaEntregas.refrescarYMostrar();
+                }
+            }
+        });
     }
 
     private void procesarAsignacion() {

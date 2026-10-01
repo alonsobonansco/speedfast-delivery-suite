@@ -3,6 +3,8 @@ package cl.duoc.speedfast.controller;
 import cl.duoc.speedfast.model.dao.EntregaDAO;
 import cl.duoc.speedfast.model.entity.Entrega;
 import cl.duoc.speedfast.view.VentanaListaEntregas;
+import cl.duoc.speedfast.view.VentanaRegistroEntrega;
+import cl.duoc.speedfast.view.VentanaRegistroPedido;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -34,6 +36,7 @@ public class ControladorListaEntregas {
 
     private void inicializarListeners() {
         ventanaListaEntregas.addVolverAtrasListener(e -> ventanaListaEntregas.cerrarVentana());
+        ventanaListaEntregas.addAgregarListener(e -> abrirFormularioNuevo());
     }
 
     private void obtenerDatosDesdeBD() {
@@ -48,5 +51,18 @@ public class ControladorListaEntregas {
 
     private void cargarDatosEnTabla() {
         ventanaListaEntregas.actualizarTabla(listaEntregas);
+    }
+
+    private void abrirFormularioNuevo() {
+        VentanaRegistroEntrega ventanaRegistroEntrega = new VentanaRegistroEntrega();
+        ventanaListaEntregas.setVisible(false);
+        new ControladorRegistroEntrega(ventanaRegistroEntrega, this);
+        ventanaRegistroEntrega.setVisible(true);
+    }
+
+    public void refrescarYMostrar() {
+        obtenerDatosDesdeBD();
+        cargarDatosEnTabla();
+        ventanaListaEntregas.setVisible(true);
     }
 }

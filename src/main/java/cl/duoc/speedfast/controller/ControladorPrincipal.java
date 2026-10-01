@@ -17,11 +17,8 @@ public class ControladorPrincipal {
     private final VentanaPrincipal ventanaPrincipal;
     private final PedidoDAO pedidoDAO = new PedidoDAO();
 
-    private VentanaRegistroPedido ventanaRegistroPedido = null;
     private VentanaListaPedidos ventanaListaPedidos = null;
     private VentanaListaRepartidores ventanaListaRepartidores = null;
-    private VentanaRegistroRepartidor ventanaRegistroRepartidor = null;
-    private VentanaRegistroEntrega ventanaRegistroEntrega = null;
     private VentanaListaEntregas ventanaListaEntregas = null;
 
     private ControladorRepartoPedidos controladorRepartoPedidos = null;
@@ -41,8 +38,7 @@ public class ControladorPrincipal {
     private void inicializarListeners() {
         ventanaPrincipal.addPedidosMenuListener(e -> ejecutarModuloPedidos());
         ventanaPrincipal.addRepartidoresMenuListener(e -> ejecutarModuloRepartidores());
-        ventanaPrincipal.addRegistrarEntregaMenuListener(e -> ejecutarRegistroEntrega());
-        ventanaPrincipal.addListarEntregasMenuListener(e -> ejecutarListarEntregas());
+        ventanaPrincipal.addEntregasMenuListener(e -> ejecutarModuloEntregas());
         ventanaPrincipal.addIniciarRepartosMenuListener(e -> ejecutarIniciarEntregas());
     }
 
@@ -72,28 +68,17 @@ public class ControladorPrincipal {
         }
     }
 
-    private void ejecutarRegistroEntrega() {
-        if (ventanaRegistroEntrega == null || !ventanaRegistroEntrega.isDisplayable()) {
-            ventanaRegistroEntrega = new VentanaRegistroEntrega();
-
-            new ControladorRegistroEntrega(ventanaRegistroEntrega);
-
-            ventanaRegistroEntrega.setVisible(true);
-            ventanaRegistroEntrega.toFront();
-            ventanaRegistroEntrega.requestFocus();
-        }
-    }
-
-    private void ejecutarListarEntregas() {
+    private void ejecutarModuloEntregas() {
+        ventanaPrincipal.clearLog();
         if (ventanaListaEntregas == null || !ventanaListaEntregas.isDisplayable()) {
             ventanaListaEntregas = new VentanaListaEntregas();
+
+            new ControladorListaEntregas(ventanaListaEntregas);
+
+            ventanaListaEntregas.setVisible(true);
+            ventanaListaEntregas.toFront();
+            ventanaListaEntregas.requestFocus();
         }
-
-        new ControladorListaEntregas(ventanaListaEntregas);
-
-        ventanaListaEntregas.setVisible(true);
-        ventanaListaEntregas.toFront();
-        ventanaListaEntregas.requestFocus();
     }
 
     private void ejecutarIniciarEntregas() {

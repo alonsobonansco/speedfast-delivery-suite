@@ -16,9 +16,7 @@ public class VentanaPrincipal extends JFrame {
 
     private JMenuItem itemPedidos;
     private JMenuItem itemRepartidores;
-
-    private JMenuItem itemRegistrarEntrega;
-    private JMenuItem itemListarEntregas;
+    private JMenuItem itemEntregas;
     private JMenuItem itemIniciarRepartos;
 
     public VentanaPrincipal() {
@@ -62,18 +60,13 @@ public class VentanaPrincipal extends JFrame {
 
         itemPedidos = new JMenuItem("Pedidos");
         itemRepartidores = new JMenuItem("Repartidores");
-
-        JMenu menuEntregas = new JMenu("Entregas");
-        itemRegistrarEntrega = new JMenuItem("Asignar Entrega a Repartidor");
-        itemListarEntregas = new JMenuItem("Listar Entregas");
-        menuEntregas.add(itemRegistrarEntrega);
-        menuEntregas.add(itemListarEntregas);
+        itemEntregas = new JMenuItem("Entregas");
 
         itemIniciarRepartos = new JMenuItem("Iniciar Repartos");
 
         menuBar.add(itemPedidos);
         menuBar.add(itemRepartidores);
-        menuBar.add(menuEntregas);
+        menuBar.add(itemEntregas);
         menuBar.add(itemIniciarRepartos);
 
         setJMenuBar(menuBar);
@@ -110,12 +103,8 @@ public class VentanaPrincipal extends JFrame {
         itemRepartidores.addActionListener(listener);
     }
 
-    public void addRegistrarEntregaMenuListener(ActionListener listener) {
-        itemRegistrarEntrega.addActionListener(listener);
-    }
-
-    public void addListarEntregasMenuListener(ActionListener listener) {
-        itemListarEntregas.addActionListener(listener);
+    public void addEntregasMenuListener(ActionListener listener) {
+        itemEntregas.addActionListener(listener);
     }
 
     public void addIniciarRepartosMenuListener(ActionListener listener) {

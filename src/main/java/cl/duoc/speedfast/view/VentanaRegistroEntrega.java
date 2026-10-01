@@ -22,7 +22,7 @@ public class VentanaRegistroEntrega extends JFrame {
 
     public VentanaRegistroEntrega() {
         setTitle("SpeedFast App");
-        setSize(700, 500);
+        setSize(750, 550);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));

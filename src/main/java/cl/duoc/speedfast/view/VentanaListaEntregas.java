@@ -17,11 +17,13 @@ public class VentanaListaEntregas extends JFrame {
     private JLabel tituloLabel;
     private JTable entregasTable;
     private DefaultTableModel tablaModel;
+
+    private JButton agregarButton;
     private JButton atrasButton;
 
     public VentanaListaEntregas() {
         setTitle("SpeedFast App");
-        setSize(700, 500);
+        setSize(750, 550);
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 15));
@@ -47,6 +49,7 @@ public class VentanaListaEntregas extends JFrame {
         entregasTable = new JTable(tablaModel);
         entregasTable.getTableHeader().setReorderingAllowed(false);
 
+        agregarButton = new JButton("Asignar Entrega");
         atrasButton = new JButton("Atrás");
     }
 
@@ -59,8 +62,13 @@ public class VentanaListaEntregas extends JFrame {
         add(panelTabla, BorderLayout.CENTER);
 
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 15));
+        panelBotones.add(agregarButton);
         panelBotones.add(atrasButton);
         add(panelBotones, BorderLayout.SOUTH);
+    }
+
+    public void addAgregarListener(ActionListener listener) {
+        agregarButton.addActionListener(listener);
     }
 
     public void addVolverAtrasListener(ActionListener listener) {
