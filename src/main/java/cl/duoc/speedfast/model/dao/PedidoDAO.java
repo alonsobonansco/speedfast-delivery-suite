@@ -33,7 +33,6 @@ public class PedidoDAO {
             pstmt.setString(1, pedido.getDireccionEntrega());
             pstmt.setString(2, pedido.getTipoPedido().name());
             pstmt.setString(3, pedido.getEstadoPedido().name());
-
             pstmt.executeUpdate();
         }
     }
@@ -124,7 +123,31 @@ public class PedidoDAO {
 
             pstmt.setString(1, nuevoEstado.name());
             pstmt.setInt(2, idPedido);
+            pstmt.executeUpdate();
+        }
+    }
 
+    public void update(Pedido pedido) throws SQLException {
+        String sql = "UPDATE pedidos SET direccion = ?, tipo = ?, estado = ? WHERE id = ?";
+
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, pedido.getDireccionEntrega());
+            pstmt.setString(2, pedido.getTipoPedido().name());
+            pstmt.setString(3, pedido.getEstadoPedido().name());
+            pstmt.setInt(4, pedido.getIdPedido());
+            pstmt.executeUpdate();
+        }
+    }
+
+    public void delete(int idPedido) throws SQLException {
+        String sql = "DELETE FROM pedidos WHERE id = ?";
+
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idPedido);
             pstmt.executeUpdate();
         }
     }
