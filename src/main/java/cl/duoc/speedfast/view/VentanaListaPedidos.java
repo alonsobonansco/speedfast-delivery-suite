@@ -18,6 +18,9 @@ public class VentanaListaPedidos extends JFrame {
     private JTable pedidosTable;
     private DefaultTableModel tablaModel;
 
+    private JComboBox<String> filtroTipoComboBox;
+    private JComboBox<String> filtroEstadoComboBox;
+
     private JButton agregarButton;
     private JButton editarButton;
     private JButton eliminarButton;
@@ -40,6 +43,9 @@ public class VentanaListaPedidos extends JFrame {
         tituloLabel.setFont(new Font("Arial", Font.BOLD, 18));
         tituloLabel.setBorder(BorderFactory.createEmptyBorder(15, 10, 5, 10));
 
+        filtroTipoComboBox = new JComboBox<>(new String[]{"Todos", "COMIDA", "ENCOMIENDA", "EXPRESS"});
+        filtroEstadoComboBox = new JComboBox<>(new String[]{"Todos", "PENDIENTE", "EN_REPARTO", "ENTREGADO"});
+
         String[] columnas = {"ID Pedido", "Dirección Entrega", "Tipo Pedido", "Estado Pedido"};
         tablaModel = new DefaultTableModel(columnas, 0) {
             @Override
@@ -59,7 +65,21 @@ public class VentanaListaPedidos extends JFrame {
     }
 
     public void construirLayout() {
-        add(tituloLabel, BorderLayout.NORTH);
+        JPanel panelSuperior = new JPanel(new BorderLayout(5, 5));
+        panelSuperior.add(tituloLabel, BorderLayout.NORTH);
+        tituloLabel.setBorder(BorderFactory.createEmptyBorder(15, 10, 5, 10));
+
+        JPanel panelFiltros = new JPanel(new FlowLayout(FlowLayout.LEFT, 15, 5));
+        panelFiltros.setBorder(BorderFactory.createTitledBorder("Filtros de Búsqueda"));
+
+        panelFiltros.add(new JLabel("Filtrar por Tipo:"));
+        panelFiltros.add(filtroTipoComboBox);
+        panelFiltros.add(new JLabel("Filtrar por Estado:"));
+        panelFiltros.add(filtroEstadoComboBox);
+
+        panelSuperior.add(panelFiltros, BorderLayout.SOUTH);
+        panelSuperior.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 10));
+        add(panelSuperior, BorderLayout.NORTH);
 
         JScrollPane scrollPane = new JScrollPane(pedidosTable);
         JPanel panelTabla = new JPanel(new BorderLayout());
@@ -90,6 +110,22 @@ public class VentanaListaPedidos extends JFrame {
                     p.getEstadoPedido().name()
             });
         }
+    }
+
+    public String getFiltroTipoSeleccionado() {
+        return (String) filtroTipoComboBox.getSelectedItem();
+    }
+
+    public String getFiltroEstadoSeleccionado() {
+        return (String) filtroEstadoComboBox.getSelectedItem();
+    }
+
+    public void addFiltroTipoListener(ActionListener listener) {
+        filtroTipoComboBox.addActionListener(listener);
+    }
+
+    public void addFiltroEstadoListener(ActionListener listener) {
+        filtroEstadoComboBox.addActionListener(listener);
     }
 
     public int getIdPedidoSeleccionado() {

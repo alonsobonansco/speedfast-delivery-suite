@@ -38,6 +38,8 @@ public class ControladorListaPedidos {
         ventanaListaPedidos.addAgregarListener(e -> abrirFormularioNuevo());
         ventanaListaPedidos.addEditarListener(e -> abrirFormularioEditar());
         ventanaListaPedidos.addEliminarListener(e -> procesarEliminacion());
+        ventanaListaPedidos.addFiltroTipoListener(e -> aplicarFiltrosTipoEstado());
+        ventanaListaPedidos.addFiltroEstadoListener(e -> aplicarFiltrosTipoEstado());
     }
 
     private void cargarDatosEnTabla() {
@@ -112,9 +114,23 @@ public class ControladorListaPedidos {
         }
     }
 
+    public void aplicarFiltrosTipoEstado() {
+        String tipoSeleccionado = ventanaListaPedidos.getFiltroTipoSeleccionado();
+        String estadoSeleccionado = ventanaListaPedidos.getFiltroEstadoSeleccionado();
+
+        List<Pedido> pedidosFiltrados = listaPedidos.stream()
+                .filter(p -> tipoSeleccionado.equals("Todos") ||
+                        p.getTipoPedido().name().equalsIgnoreCase(tipoSeleccionado))
+                .filter(p -> estadoSeleccionado.equals("Todos") ||
+                        p.getEstadoPedido().name().equalsIgnoreCase(estadoSeleccionado))
+                .toList();
+
+        ventanaListaPedidos.actualizarTabla(pedidosFiltrados);
+    }
+
     public void refrescarYMostrar() {
         obtenerDatosDesdeBD();
-        cargarDatosEnTabla();
+        aplicarFiltrosTipoEstado();
         ventanaListaPedidos.setVisible(true);
     }
 }
