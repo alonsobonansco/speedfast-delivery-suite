@@ -80,10 +80,6 @@ public class VentanaRegistroRepartidor extends JFrame {
         dispose();
     }
 
-    public void limpiarFormulario() {
-        nombreTextField.setText("");
-    }
-
     public void addGuardarListener(ActionListener listener) {
         guardarButton.addActionListener(listener);
     }
@@ -98,5 +94,13 @@ public class VentanaRegistroRepartidor extends JFrame {
 
     public void mostrarMensajeError(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void prellenarFormulario(String nombre) {
+        nombreTextField.setText(nombre);
+    }
+
+    public void limpiarFormulario() {
+        nombreTextField.setText("");
     }
 }

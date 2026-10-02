@@ -97,12 +97,6 @@ public class VentanaRegistroPedido extends JFrame {
         atrasButton.addActionListener(e -> cerrarVentana());
     }
 
-    public void prellenarFormulario(String direccion, String tipo, String estado) {
-        direccionTextField.setText(direccion);
-        tipoComboBox.setSelectedItem(tipo);
-        estadoComboBox.setSelectedItem(estado);
-    }
-
     /**
      * Recupera y sanitiza la dirección de destino ingresada en el campo de texto,
      * removiendo los espacios en blanco innecesarios en los extremos.
@@ -144,6 +138,12 @@ public class VentanaRegistroPedido extends JFrame {
 
     public void mostrarMensajeError(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void prellenarFormulario(String direccion, String tipo, String estado) {
+        direccionTextField.setText(direccion);
+        tipoComboBox.setSelectedItem(tipo);
+        estadoComboBox.setSelectedItem(estado);
     }
 
     public void limpiarFormulario() {

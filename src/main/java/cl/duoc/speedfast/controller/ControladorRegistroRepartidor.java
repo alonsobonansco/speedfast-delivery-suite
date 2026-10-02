@@ -32,6 +32,10 @@ public class ControladorRegistroRepartidor {
         this.controladorListaRepartidores = controladorListaRepartidores;
 
         inicializarListeners();
+
+        if (this.repartidorAEditar != null) {
+            this.ventanaRegistroRepartidor.prellenarFormulario(repartidorAEditar.getNombreRepartidor());
+        }
     }
 
     private void inicializarListeners() {
