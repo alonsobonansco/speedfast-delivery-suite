@@ -19,6 +19,7 @@ public class VentanaListaEntregas extends JFrame {
     private DefaultTableModel tablaModel;
 
     private JButton agregarButton;
+    private JButton eliminarButton;
     private JButton atrasButton;
 
     public VentanaListaEntregas() {
@@ -50,6 +51,7 @@ public class VentanaListaEntregas extends JFrame {
         entregasTable.getTableHeader().setReorderingAllowed(false);
 
         agregarButton = new JButton("Asignar Entrega");
+        eliminarButton = new JButton("Eliminar Entrega");
         atrasButton = new JButton("Atrás");
     }
 
@@ -63,12 +65,17 @@ public class VentanaListaEntregas extends JFrame {
 
         JPanel panelBotones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 15));
         panelBotones.add(agregarButton);
+        panelBotones.add(eliminarButton);
         panelBotones.add(atrasButton);
         add(panelBotones, BorderLayout.SOUTH);
     }
 
     public void addAgregarListener(ActionListener listener) {
         agregarButton.addActionListener(listener);
+    }
+
+    public void addEliminarListener(ActionListener listener) {
+        eliminarButton.addActionListener(listener);
     }
 
     public void addVolverAtrasListener(ActionListener listener) {
@@ -94,7 +101,27 @@ public class VentanaListaEntregas extends JFrame {
         }
     }
 
+    public int getIdEntregaSeleccionada() {
+        int filaSeleccionada = entregasTable.getSelectedRow();
+        if (filaSeleccionada == -1) return -1;
+        return (int) tablaModel.getValueAt(filaSeleccionada, 0);
+    }
+
+    public void mostrarMensajeConfirmacion(String mensaje) {
+        JOptionPane.showMessageDialog(this, mensaje, "Proceso exitoso", JOptionPane.INFORMATION_MESSAGE);
+    }
+
     public void mostrarMensajeError(String mensaje) {
         JOptionPane.showMessageDialog(this, mensaje, "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
+    public boolean confirmarEliminacion() {
+        int opcion = JOptionPane.showConfirmDialog(this,
+                "¿Está seguro de que desea eliminar esta entrega?",
+                "Confirmar eliminación",
+                JOptionPane.YES_NO_OPTION,
+                JOptionPane.WARNING_MESSAGE);
+
+        return opcion == JOptionPane.YES_OPTION;
     }
 }

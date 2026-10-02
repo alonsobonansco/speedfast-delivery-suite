@@ -116,7 +116,7 @@ public class VentanaListaRepartidores extends JFrame {
     }
 
     public void mostrarMensajeConfirmacion(String mensaje) {
-        JOptionPane.showMessageDialog(this, mensaje, "Registro exitoso", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(this, mensaje, "Proceso exitoso", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public void mostrarMensajeError(String mensaje) {

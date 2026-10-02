@@ -37,6 +37,7 @@ public class ControladorListaEntregas {
     private void inicializarListeners() {
         ventanaListaEntregas.addVolverAtrasListener(e -> ventanaListaEntregas.cerrarVentana());
         ventanaListaEntregas.addAgregarListener(e -> abrirFormularioNuevo());
+        ventanaListaEntregas.addEliminarListener(e -> procesarEliminacion());
     }
 
     private void obtenerDatosDesdeBD() {
@@ -58,6 +59,29 @@ public class ControladorListaEntregas {
         ventanaListaEntregas.setVisible(false);
         new ControladorRegistroEntrega(ventanaRegistroEntrega, this);
         ventanaRegistroEntrega.setVisible(true);
+    }
+
+    private void procesarEliminacion() {
+        int idSel = ventanaListaEntregas.getIdEntregaSeleccionada();
+        if (idSel == -1) {
+            ventanaListaEntregas.mostrarMensajeError("Debe seleccionar una entrega para eliminar.");
+            return;
+        }
+
+        boolean confirmacion = ventanaListaEntregas.confirmarEliminacion();
+
+        if (confirmacion) {
+            try {
+                entregaDAO.delete(idSel);
+                obtenerDatosDesdeBD();
+                cargarDatosEnTabla();
+
+                ventanaListaEntregas.mostrarMensajeConfirmacion("Entrega eliminada correctamente.");
+
+            } catch (SQLException ex) {
+                ventanaListaEntregas.mostrarMensajeError("Error al eliminar la entrega: " + ex.getMessage());
+            }
+        }
     }
 
     public void refrescarYMostrar() {

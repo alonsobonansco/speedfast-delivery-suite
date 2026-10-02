@@ -95,4 +95,15 @@ public class EntregaDAO {
 
         return listaEntregas;
     }
+
+    public void delete(int idEntrega) throws SQLException {
+        String sql = "DELETE FROM entregas WHERE id = ?";
+
+        try (Connection conn = ConexionBD.obtenerConexion();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, idEntrega);
+            pstmt.executeUpdate();
+        }
+    }
 }
