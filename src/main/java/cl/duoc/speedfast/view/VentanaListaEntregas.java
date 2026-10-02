@@ -3,6 +3,7 @@ package cl.duoc.speedfast.view;
 import cl.duoc.speedfast.model.entity.Entrega;
 
 import javax.swing.*;
+import javax.swing.event.DocumentListener;
 import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.ActionListener;
@@ -17,6 +18,9 @@ public class VentanaListaEntregas extends JFrame {
     private JLabel tituloLabel;
     private JTable entregasTable;
     private DefaultTableModel tablaModel;
+
+    private JTextField filtroPedidoJTextField;
+    private JComboBox<Object> filtroRepartidorComboBox;
 
     private JButton agregarButton;
     private JButton eliminarButton;
@@ -39,6 +43,9 @@ public class VentanaListaEntregas extends JFrame {
         tituloLabel.setFont(new Font("Arial", Font.BOLD, 18));
         tituloLabel.setBorder(BorderFactory.createEmptyBorder(15, 10, 5, 10));
 
+        filtroPedidoJTextField = new JTextField(8);
+        filtroRepartidorComboBox = new JComboBox<>();
+
         String[] columnas = {"ID Entrega", "ID Pedido", "ID Repartidor", "Fecha", "Hora"};
         tablaModel = new DefaultTableModel(columnas, 0) {
             @Override
@@ -56,7 +63,22 @@ public class VentanaListaEntregas extends JFrame {
     }
 
     private void construirLayout() {
-        add(tituloLabel, BorderLayout.NORTH);
+        JPanel panelSuperior = new JPanel(new BorderLayout(5, 5));
+        panelSuperior.add(tituloLabel, BorderLayout.NORTH);
+        tituloLabel.setBorder(BorderFactory.createEmptyBorder(15, 10, 5, 10));
+
+        JPanel panelFiltros = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 5));
+        panelFiltros.setBorder(BorderFactory.createTitledBorder("Filtros de Búsqueda"));
+
+        panelFiltros.add(new JLabel("Buscar por ID Pedido:"));
+        panelFiltros.add(filtroPedidoJTextField);
+        panelFiltros.add(new JLabel("Filtrar por Repartidor:"));
+        panelFiltros.add(filtroRepartidorComboBox);
+
+        panelSuperior.add(panelFiltros, BorderLayout.CENTER);
+        panelSuperior.setBorder(BorderFactory.createEmptyBorder(5, 20, 10, 20));
+        add(panelSuperior, BorderLayout.NORTH);
+
         JScrollPane scrollPane = new JScrollPane(entregasTable);
         JPanel panelTabla = new JPanel(new BorderLayout());
         panelTabla.setBorder(BorderFactory.createEmptyBorder(0, 20, 20, 20));
@@ -82,6 +104,14 @@ public class VentanaListaEntregas extends JFrame {
         atrasButton.addActionListener(listener);
     }
 
+    public void addFiltroPedidoListener(DocumentListener listener) {
+        filtroPedidoJTextField.getDocument().addDocumentListener(listener);
+    }
+
+    public void addFiltroRepartidorListener(ActionListener listener) {
+        filtroRepartidorComboBox.addActionListener(listener);
+    }
+
     public void cerrarVentana() {
         this.dispose();
     }
@@ -99,6 +129,20 @@ public class VentanaListaEntregas extends JFrame {
             };
             tablaModel.addRow(fila);
         }
+    }
+
+    public void llenarRepartidoresComboBox(List<Object> listaRepartidores) {
+        filtroRepartidorComboBox.removeAllItems();
+        filtroRepartidorComboBox.addItem("--- Todos los Repartidores ---");
+        for (Object r : listaRepartidores) filtroRepartidorComboBox.addItem(r);
+    }
+
+    public String getIdPedidoFiltro() {
+        return filtroPedidoJTextField.getText().trim();
+    }
+
+    public JComboBox<Object> getRepartidorFiltro() {
+        return filtroRepartidorComboBox;
     }
 
     public int getIdEntregaSeleccionada() {

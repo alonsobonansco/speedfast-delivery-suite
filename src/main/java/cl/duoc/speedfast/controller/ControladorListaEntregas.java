@@ -1,11 +1,15 @@
 package cl.duoc.speedfast.controller;
 
 import cl.duoc.speedfast.model.dao.EntregaDAO;
+import cl.duoc.speedfast.model.dao.RepartidorDAO;
 import cl.duoc.speedfast.model.entity.Entrega;
+import cl.duoc.speedfast.model.entity.Repartidor;
 import cl.duoc.speedfast.view.VentanaListaEntregas;
 import cl.duoc.speedfast.view.VentanaRegistroEntrega;
 import cl.duoc.speedfast.view.VentanaRegistroPedido;
 
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +22,7 @@ public class ControladorListaEntregas {
 
     private final VentanaListaEntregas ventanaListaEntregas;
     private final EntregaDAO entregaDAO = new EntregaDAO();
+    private final RepartidorDAO repartidorDAO = new RepartidorDAO();
     private List<Entrega> listaEntregas;
 
     /**
@@ -31,6 +36,7 @@ public class ControladorListaEntregas {
 
         inicializarListeners();
         obtenerDatosDesdeBD();
+        cargarComboFiltroRepartidores();
         cargarDatosEnTabla();
     }
 
@@ -38,6 +44,15 @@ public class ControladorListaEntregas {
         ventanaListaEntregas.addVolverAtrasListener(e -> ventanaListaEntregas.cerrarVentana());
         ventanaListaEntregas.addAgregarListener(e -> abrirFormularioNuevo());
         ventanaListaEntregas.addEliminarListener(e -> procesarEliminacion());
+        ventanaListaEntregas.addFiltroRepartidorListener(e -> aplicarFiltrosHistorial());
+        ventanaListaEntregas.addFiltroPedidoListener(new DocumentListener() {
+            @Override
+            public void insertUpdate(DocumentEvent e) {aplicarFiltrosHistorial();}
+            @Override
+            public void removeUpdate(DocumentEvent e) {aplicarFiltrosHistorial();}
+            @Override
+            public void changedUpdate(DocumentEvent e) {aplicarFiltrosHistorial();}
+        });
     }
 
     private void obtenerDatosDesdeBD() {
@@ -50,8 +65,45 @@ public class ControladorListaEntregas {
         }
     }
 
+    // ?
+    private void cargarComboFiltroRepartidores() {
+        try {
+            List<Object> repartidores = new ArrayList<>(repartidorDAO.readAll());
+            ventanaListaEntregas.llenarRepartidoresComboBox(repartidores);
+
+        } catch (SQLException ex) {
+            ventanaListaEntregas.mostrarMensajeError("Error al cargar los repartidores: " + ex.getMessage());
+        }
+    }
+
     private void cargarDatosEnTabla() {
         ventanaListaEntregas.actualizarTabla(listaEntregas);
+    }
+
+    private void aplicarFiltrosHistorial() {
+        String idPedidoTexto = ventanaListaEntregas.getIdPedidoFiltro();
+        Object repartidorSel = ventanaListaEntregas.getRepartidorFiltro().getSelectedItem();
+
+        if (repartidorSel == null) return;
+
+        List<Entrega> listaFiltrada = this.listaEntregas.stream()
+                .filter(e -> {
+                    if (idPedidoTexto.isBlank()) return true;
+
+                    String idPedidoStr = String.valueOf(e.getIdPedido());
+
+                    return idPedidoStr.contains(idPedidoTexto);
+
+                })
+                .filter(e -> {
+                    if (repartidorSel instanceof String) return true;
+
+                    Repartidor r = (Repartidor) repartidorSel;
+                    return e.getIdRepartidor() == r.getIdRepartidor();
+                })
+                .toList();
+
+        ventanaListaEntregas.actualizarTabla(listaFiltrada);
     }
 
     private void abrirFormularioNuevo() {
@@ -74,7 +126,7 @@ public class ControladorListaEntregas {
             try {
                 entregaDAO.delete(idSel);
                 obtenerDatosDesdeBD();
-                cargarDatosEnTabla();
+                aplicarFiltrosHistorial();
 
                 ventanaListaEntregas.mostrarMensajeConfirmacion("Entrega eliminada correctamente.");
 
@@ -86,7 +138,7 @@ public class ControladorListaEntregas {
 
     public void refrescarYMostrar() {
         obtenerDatosDesdeBD();
-        cargarDatosEnTabla();
+        aplicarFiltrosHistorial();
         ventanaListaEntregas.setVisible(true);
     }
 }
