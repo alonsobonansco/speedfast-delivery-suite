@@ -72,21 +72,22 @@ public class ControladorRegistroPedido {
             TipoPedido tipoPedidoEnum = TipoPedido.valueOf(tipoPedidoStr.toUpperCase());
             EstadoPedido estadoPedidoEnum = EstadoPedido.valueOf(estadoPedidoStr.toUpperCase());
 
-
             if (pedidoAEditar == null) {
                 Pedido nuevoPedido = new Pedido(direccionEntrega, tipoPedidoEnum, estadoPedidoEnum);
                 pedidoDAO.create(nuevoPedido);
+
                 ventanaRegistroPedido.mostrarMensajeConfirmacion("Pedido registrado exitosamente.");
 
+                ventanaRegistroPedido.limpiarFormulario();
             } else {
                 pedidoAEditar.setDireccionEntrega(direccionEntrega);
                 pedidoAEditar.setTipoPedido(tipoPedidoEnum);
                 pedidoAEditar.setEstadoPedido(estadoPedidoEnum);
                 pedidoDAO.update(pedidoAEditar);
-                ventanaRegistroPedido.mostrarMensajeConfirmacion("Pedido actualizado exitosamente.");
-            }
 
-            ventanaRegistroPedido.cerrarVentana();
+                ventanaRegistroPedido.mostrarMensajeConfirmacion("Pedido actualizado exitosamente.");
+                ventanaRegistroPedido.cerrarVentana();
+            }
 
         } catch (IllegalArgumentException e) {
             ventanaRegistroPedido.mostrarMensajeError(e.getMessage());

@@ -137,4 +137,9 @@ public class VentanaRegistroEntrega extends JFrame {
         repartidorJComboBox.removeAllItems();
         for (Repartidor r : repartidores) repartidorJComboBox.addItem(r);
     }
+
+    public void limpiarFormulario() {
+        pedidoJComboBox.setSelectedIndex(0);
+        repartidorJComboBox.setSelectedIndex(0);
+    }
 }

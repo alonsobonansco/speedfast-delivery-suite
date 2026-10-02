@@ -134,7 +134,6 @@ public class VentanaRegistroPedido extends JFrame {
         guardarButton.addActionListener(listener);
     }
 
-    // ya no lo uso? tampoco los de ↓?
     public void addVolverAtrasListener(ActionListener listener) {
         atrasButton.addActionListener(listener);
     }
@@ -149,5 +148,7 @@ public class VentanaRegistroPedido extends JFrame {
 
     public void limpiarFormulario() {
         direccionTextField.setText("");
+        tipoComboBox.setSelectedIndex(0);
+        estadoComboBox.setSelectedIndex(0);
     }
 }

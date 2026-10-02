@@ -59,12 +59,16 @@ public class ControladorRegistroRepartidor {
             if (repartidorAEditar == null) {
                 Repartidor nuevoRepartidor = new Repartidor(nombreRepartidor);
                 repartidorDAO.create(nuevoRepartidor);
+
                 ventanaRegistroRepartidor.mostrarMensajeConfirmacion("Repartidor registrado correctamente.");
+                ventanaRegistroRepartidor.limpiarFormulario();
 
             } else {
                 repartidorAEditar.setNombreRepartidor(nombreRepartidor);
                 repartidorDAO.update(repartidorAEditar);
+
                 ventanaRegistroRepartidor.mostrarMensajeConfirmacion("Repartidor actualizado correctamente.");
+                ventanaRegistroRepartidor.cerrarVentana();
             }
 
         } catch (IllegalArgumentException e) {
