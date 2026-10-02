@@ -100,7 +100,14 @@ public class ControladorListaPedidos {
                 ventanaListaPedidos.mostrarMensajeConfirmacion("Pedido eliminado correctamente.");
 
             } catch (SQLException ex) {
-                ventanaListaPedidos.mostrarMensajeError("Error al eliminar el pedido: " + ex.getMessage());
+                if (ex.getErrorCode() == 1451) {
+                    ventanaListaPedidos.mostrarMensajeError(
+                            "No se puede eliminar este pedido porque tiene un historial de entregas asociado.\n" +
+                                    "Para borrarlo, primero debes eliminar sus registros en el módulo de entregas."
+                    );
+                } else {
+                    ventanaListaPedidos.mostrarMensajeError("Error al eliminar el pedido: " + ex.getMessage());
+                }
             }
         }
     }

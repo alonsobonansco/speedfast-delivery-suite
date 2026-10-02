@@ -91,7 +91,6 @@ public class ControladorListaRepartidores {
         }
 
         boolean confirmacion = ventanaListaRepartidores.confirmarEliminacion();
-        // if (!confirmacion) return;
 
         if (confirmacion) {
             try {
@@ -101,7 +100,14 @@ public class ControladorListaRepartidores {
                 ventanaListaRepartidores.mostrarMensajeConfirmacion("Repartidor eliminado correctamente.");
 
             } catch (SQLException ex) {
-                ventanaListaRepartidores.mostrarMensajeError("Error al eliminar el repartidor: " + ex.getMessage());
+                if (ex.getErrorCode() == 1451) {
+                    ventanaListaRepartidores.mostrarMensajeError(
+                            "No se puede eliminar este repartidor porque tiene un historial de entregas asociado.\n" +
+                                    "Para borrarlo, primero debes eliminar sus registros en el módulo de entregas."
+                    );
+                } else {
+                    ventanaListaRepartidores.mostrarMensajeError("Error al eliminar el repartidor: " + ex.getMessage());
+                }
             }
         }
     }
