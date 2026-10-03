@@ -6,17 +6,17 @@ package cl.duoc.speedfast.model.entity;
  */
 public class Pedido {
 
-    private TipoPedido tipoPedido;
     private final int idPedido;
+    private TipoPedido tipoPedido;
     private String direccionEntrega;
     private EstadoPedido estadoPedido;
 
     /**
      * Constructor para reconstruir instancias de pedidos existentes recuperados desde MySQL.
      *
-     * @param idPedido ID único correlativo físico en la base de datos.
+     * @param idPedido         ID único correlativo físico en la base de datos.
      * @param direccionEntrega Dirección de destino sanitizada.
-     * @param tipoPedido Clasificación del servicio (COMIDA, ENCOMIENDA, EXPRESS).
+     * @param tipoPedido       Clasificación del servicio (COMIDA, ENCOMIENDA, EXPRESS).
      * @throws IllegalArgumentException Si el ID es menor o igual a cero, o si los datos son nulos o vacíos.
      */
     public Pedido(int idPedido, String direccionEntrega, TipoPedido tipoPedido, EstadoPedido estadoPedido) {
@@ -34,8 +34,9 @@ public class Pedido {
      * Constructor para nuevos registros levantados desde el formulario de la interfaz gráfica.
      * Inicializa el identificador en 0 a la espera del AUTO_INCREMENT del motor relacional.
      *
-     * @param tipoPedido Clasificación del servicio (COMIDA, ENCOMIENDA, EXPRESS).
      * @param direccionEntrega Dirección de destino proporcionada por el usuario.
+     * @param tipoPedido       Clasificación del servicio (COMIDA, ENCOMIENDA, EXPRESS).
+     * @param estadoPedido     Estado inicial de tránsito asignado al registro.
      * @throws IllegalArgumentException Si el tipo de pedido es nulo o la dirección es inválida.
      */
     public Pedido(String direccionEntrega, TipoPedido tipoPedido, EstadoPedido estadoPedido) {

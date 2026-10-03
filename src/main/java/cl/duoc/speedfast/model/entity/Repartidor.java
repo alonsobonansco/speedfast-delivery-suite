@@ -20,7 +20,7 @@ public class Repartidor implements Runnable {
     /**
      * Constructor para inicializar un repartidor directamente vinculado a la simulación.
      *
-     * @param nombreRepartidor Nombre del repartidor.
+     * @param nombreRepartidor          Nombre del repartidor.
      * @param controladorRepartoPedidos Controlador que orquesta la cola de reparto.
      * @throws IllegalArgumentException Si el controlador es nulo o el nombre es inválido.
      */
@@ -47,7 +47,7 @@ public class Repartidor implements Runnable {
     /**
      * Constructor para reconstruir instancias existentes extraídas desde la base de datos.
      *
-     * @param idRepartidor ID correlativo físico en MySQL.
+     * @param idRepartidor     ID correlativo físico en MySQL.
      * @param nombreRepartidor Nombre del repartidor.
      * @throws IllegalArgumentException Si el ID es menor o igual a cero o el nombre es inválido.
      */
@@ -78,12 +78,12 @@ public class Repartidor implements Runnable {
         return idRepartidor;
     }
 
-    public void setNombreRepartidor(String nombreRepartidor) {
-        this.nombreRepartidor = validarNombreRepartidor(nombreRepartidor);
-    }
-
     public String getNombreRepartidor() {
         return nombreRepartidor;
+    }
+
+    public void setNombreRepartidor(String nombreRepartidor) {
+        this.nombreRepartidor = validarNombreRepartidor(nombreRepartidor);
     }
 
     /**

@@ -64,7 +64,7 @@ public class VentanaListaPedidos extends JFrame {
         atrasButton = new JButton("Atrás");
     }
 
-    public void construirLayout() {
+    private void construirLayout() {
         JPanel panelSuperior = new JPanel(new BorderLayout(5, 5));
         panelSuperior.add(tituloLabel, BorderLayout.NORTH);
         tituloLabel.setBorder(BorderFactory.createEmptyBorder(15, 10, 5, 10));

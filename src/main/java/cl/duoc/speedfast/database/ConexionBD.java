@@ -14,7 +14,8 @@ public final class ConexionBD {
     private static final String USER = System.getenv("DB_USER");
     private static final String PASSWORD = System.getenv("DB_PASSWORD");
 
-    private ConexionBD() {}
+    private ConexionBD() {
+    }
 
     /**
      * Establece y retorna un canal activo de comunicación (Connection) utilizando el driver JDBC de MySQL.

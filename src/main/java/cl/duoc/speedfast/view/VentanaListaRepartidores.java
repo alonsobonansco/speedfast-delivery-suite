@@ -58,7 +58,7 @@ public class VentanaListaRepartidores extends JFrame {
         atrasButton = new JButton("Atrás");
     }
 
-    public void construirLayout() {
+    private void construirLayout() {
         add(tituloLabel, BorderLayout.NORTH);
 
         JScrollPane scrollPane = new JScrollPane(repartidoresTable);

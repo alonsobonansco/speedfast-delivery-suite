@@ -6,7 +6,6 @@ import cl.duoc.speedfast.model.entity.Entrega;
 import cl.duoc.speedfast.model.entity.Repartidor;
 import cl.duoc.speedfast.view.VentanaListaEntregas;
 import cl.duoc.speedfast.view.VentanaRegistroEntrega;
-import cl.duoc.speedfast.view.VentanaRegistroPedido;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -47,11 +46,19 @@ public class ControladorListaEntregas {
         ventanaListaEntregas.addFiltroRepartidorListener(e -> aplicarFiltrosHistorial());
         ventanaListaEntregas.addFiltroPedidoListener(new DocumentListener() {
             @Override
-            public void insertUpdate(DocumentEvent e) {aplicarFiltrosHistorial();}
+            public void insertUpdate(DocumentEvent e) {
+                aplicarFiltrosHistorial();
+            }
+
             @Override
-            public void removeUpdate(DocumentEvent e) {aplicarFiltrosHistorial();}
+            public void removeUpdate(DocumentEvent e) {
+                aplicarFiltrosHistorial();
+            }
+
             @Override
-            public void changedUpdate(DocumentEvent e) {aplicarFiltrosHistorial();}
+            public void changedUpdate(DocumentEvent e) {
+                aplicarFiltrosHistorial();
+            }
         });
     }
 
@@ -65,7 +72,6 @@ public class ControladorListaEntregas {
         }
     }
 
-    // ?
     private void cargarComboFiltroRepartidores() {
         try {
             List<Object> repartidores = new ArrayList<>(repartidorDAO.readAll());

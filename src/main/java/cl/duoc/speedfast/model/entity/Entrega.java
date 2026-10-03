@@ -18,10 +18,10 @@ public class Entrega {
     /**
      * Constructor transaccional para instanciar y validar un registro de asignación de entrega.
      *
-     * @param idPedido ID correlativo del pedido asociado en MySQL.
+     * @param idPedido     ID correlativo del pedido asociado en MySQL.
      * @param idRepartidor ID correlativo del repartidor asignado en MySQL.
-     * @param fecha Fecha de registro del despacho físico.
-     * @param hora Hora exacta de salida del transporte.
+     * @param fecha        Fecha de registro del despacho físico.
+     * @param hora         Hora exacta de salida del transporte.
      * @throws IllegalArgumentException Si los IDs son menores o iguales a cero, o si los objetos temporales son nulos.
      */
     public Entrega(int idPedido, int idRepartidor, LocalDate fecha, LocalTime hora) {

@@ -2,7 +2,10 @@ package cl.duoc.speedfast.controller;
 
 import cl.duoc.speedfast.model.dao.PedidoDAO;
 import cl.duoc.speedfast.model.entity.Pedido;
-import cl.duoc.speedfast.view.*;
+import cl.duoc.speedfast.view.VentanaListaEntregas;
+import cl.duoc.speedfast.view.VentanaListaPedidos;
+import cl.duoc.speedfast.view.VentanaListaRepartidores;
+import cl.duoc.speedfast.view.VentanaPrincipal;
 
 import java.sql.SQLException;
 import java.util.List;

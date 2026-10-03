@@ -1,4 +1,5 @@
 package cl.duoc.speedfast.event;
+
 /**
  * Interfaz funcional que actúa como canal de comunicación asíncrono.
  * Implementa el patrón Observer para transportar las trazas de texto
