@@ -54,6 +54,10 @@ public class ControladorListaRepartidores {
         }
     }
 
+    /**
+     * Instancia de forma perezosa el formulario visual de registro, ocultando
+     * temporalmente la lista activa y pasando referencias nulas para indicar un modo de inserción (CREATE).
+     */
     private void abrirFormularioNuevo() {
         VentanaRegistroRepartidor ventanaRegistroRepartidor = new VentanaRegistroRepartidor();
         ventanaListaRepartidores.setVisible(false);
@@ -61,6 +65,10 @@ public class ControladorListaRepartidores {
         ventanaRegistroRepartidor.setVisible(true);
     }
 
+    /**
+     * Captura la coordenada numérica de la fila seleccionada en el JTable, extrae la entidad
+     * correspondiente desde la memoria RAM y levanta el formulario inyectándole los datos para su edición (UPDATE).
+     */
     private void abrirFormularioEditar() {
         int idSel = ventanaListaRepartidores.getIdRepartidorSeleccionado();
         if (idSel == -1) {
@@ -83,6 +91,10 @@ public class ControladorListaRepartidores {
         ventanaRegistroRepartidor.setVisible(true);
     }
 
+    /**
+     * Procesa la eliminación física de un registro (DELETE). Solicita una confirmación defensiva
+     * al usuario y captura de forma controlada las posibles excepciones por violación de claves foráneas.
+     */
     private void procesarEliminacion() {
         int idSel = ventanaListaRepartidores.getIdRepartidorSeleccionado();
         if (idSel == -1) {

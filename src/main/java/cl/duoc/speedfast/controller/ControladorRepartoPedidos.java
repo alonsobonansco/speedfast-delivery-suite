@@ -38,6 +38,12 @@ public class ControladorRepartoPedidos {
         this.ventanaPrincipal = ventanaPrincipal;
     }
 
+    /**
+     * Persiste de forma directa e independiente el cambio definitivo a 'ENTREGADO'
+     * en las filas de la tabla de pedidos de MySQL tras completarse la ruta.
+     *
+     * @param pedido Instancia del pedido modificado por el hilo del motorista.
+     */
     public synchronized void registrarEntregaEnBD(Pedido pedido) {
         try {
             pedidoDAO.actualizarEstado(pedido.getIdPedido(), EstadoPedido.ENTREGADO);

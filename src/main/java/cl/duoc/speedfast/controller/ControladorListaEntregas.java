@@ -72,6 +72,10 @@ public class ControladorListaEntregas {
         }
     }
 
+    /**
+     * Consulta de forma complementaria la tabla de repartidores en MySQL al iniciar la pantalla
+     * para abastecer y poblar el componente JComboBox de filtrado con los trabajadores activos.
+     */
     private void cargarComboFiltroRepartidores() {
         try {
             List<Object> repartidores = new ArrayList<>(repartidorDAO.readAll());
@@ -86,6 +90,10 @@ public class ControladorListaEntregas {
         ventanaListaEntregas.actualizarTabla(listaEntregas);
     }
 
+    /**
+     * Ejecuta el motor multifiltro cruzado de forma local en la memoria RAM utilizando Streams.
+     * Evalúa de forma combinada la coincidencia predictiva del ID de pedido y la clave foránea del repartidor.
+     */
     private void aplicarFiltrosHistorial() {
         String idPedidoTexto = ventanaListaEntregas.getIdPedidoFiltro();
         Object repartidorSel = ventanaListaEntregas.getRepartidorFiltro().getSelectedItem();
@@ -112,6 +120,10 @@ public class ControladorListaEntregas {
         ventanaListaEntregas.actualizarTabla(listaFiltrada);
     }
 
+    /**
+     * Oculta la vista histórica actual y levanta el formulario de asignación manual,
+     * inyectando la referencia de control del padre para permitir la sincronización reversa.
+     */
     private void abrirFormularioNuevo() {
         VentanaRegistroEntrega ventanaRegistroEntrega = new VentanaRegistroEntrega();
         ventanaListaEntregas.setVisible(false);
@@ -119,6 +131,10 @@ public class ControladorListaEntregas {
         ventanaRegistroEntrega.setVisible(true);
     }
 
+    /**
+     * Maneja la baja de una asignación en el historial (DELETE) por su identificador correlativo primario.
+     * Despliega la confirmación nativa de la vista y re-aplica los filtros en caliente al confirmar.
+     */
     private void procesarEliminacion() {
         int idSel = ventanaListaEntregas.getIdEntregaSeleccionada();
         if (idSel == -1) {

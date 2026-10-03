@@ -56,6 +56,10 @@ public class ControladorListaPedidos {
         }
     }
 
+    /**
+     * Oculta de manera temporal la ventana del catálogo y levanta la vista del formulario
+     * en limpio pasándole un parámetro de control nulo para inicializar el modo de inserción (CREATE).
+     */
     private void abrirFormularioNuevo() {
         VentanaRegistroPedido ventanaRegistroPedido = new VentanaRegistroPedido();
         ventanaListaPedidos.setVisible(false);
@@ -63,6 +67,10 @@ public class ControladorListaPedidos {
         ventanaRegistroPedido.setVisible(true);
     }
 
+    /**
+     * Captura el identificador correlativo único de la cuadrícula, recupera la entidad correspondiente
+     * de la memoria RAM e inyecta la instancia en el formulario visual para activar el modo de modificación (UPDATE).
+     */
     private void abrirFormularioEditar() {
         int idSel = ventanaListaPedidos.getIdPedidoSeleccionado();
         if (idSel == -1) {
@@ -84,6 +92,10 @@ public class ControladorListaPedidos {
         ventanaRegistroPedido.setVisible(true);
     }
 
+    /**
+     * Ejecuta la baja física del pedido por clave primaria (DELETE). Solicita la confirmación
+     * gráfica del usuario y procesa las excepciones centralizadas por fallas de restricción relacional.
+     */
     private void procesarEliminacion() {
         int idSel = ventanaListaPedidos.getIdPedidoSeleccionado();
         if (idSel == -1) {
@@ -114,6 +126,11 @@ public class ControladorListaPedidos {
         }
     }
 
+    /**
+     * Procesa de manera reactiva e instantánea el filtrado de registros en la memoria RAM
+     * mediante operadores lambda sin sin hacer consultas adicionales a MySQL, cruzando las opciones de
+     * tipo y estado.
+     */
     public void aplicarFiltrosTipoEstado() {
         String tipoSeleccionado = ventanaListaPedidos.getFiltroTipoSeleccionado();
         String estadoSeleccionado = ventanaListaPedidos.getFiltroEstadoSeleccionado();

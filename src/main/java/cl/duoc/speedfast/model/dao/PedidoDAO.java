@@ -127,6 +127,13 @@ public class PedidoDAO {
         }
     }
 
+    /**
+     * Actualiza administrativamente todas las columnas editables de un registro de pedido.
+     * Permite modificar simultáneamente dirección, tipo y estado según su clave primaria.
+     *
+     * @param pedido Objeto entidad que contiene el ID de búsqueda y los nuevos valores.
+     * @throws SQLException Si ocurre una falla de persistencia o restricción física en MySQL.
+     */
     public void update(Pedido pedido) throws SQLException {
         String sql = "UPDATE pedidos SET direccion = ?, tipo = ?, estado = ? WHERE id = ?";
 
@@ -141,6 +148,12 @@ public class PedidoDAO {
         }
     }
 
+    /**
+     * Elimina permanentemente un pedido utilizando su clave primaria.
+     *
+     * @param idPedido Coordenada numérica única del registro de pedido a dar de baja.
+     * @throws SQLException Si el registro está amarrado a una entrega o falla la comunicación JDBC.
+     */
     public void delete(int idPedido) throws SQLException {
         String sql = "DELETE FROM pedidos WHERE id = ?";
 

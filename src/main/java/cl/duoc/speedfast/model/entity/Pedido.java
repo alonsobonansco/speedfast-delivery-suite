@@ -17,6 +17,7 @@ public class Pedido {
      * @param idPedido         ID único correlativo físico en la base de datos.
      * @param direccionEntrega Dirección de destino sanitizada.
      * @param tipoPedido       Clasificación del servicio (COMIDA, ENCOMIENDA, EXPRESS).
+     * @param estadoPedido     Estado de tránsito o despacho del pedido.
      * @throws IllegalArgumentException Si el ID es menor o igual a cero, o si los datos son nulos o vacíos.
      */
     public Pedido(int idPedido, String direccionEntrega, TipoPedido tipoPedido, EstadoPedido estadoPedido) {

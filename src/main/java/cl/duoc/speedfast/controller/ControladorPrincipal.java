@@ -45,6 +45,10 @@ public class ControladorPrincipal {
         ventanaPrincipal.addIniciarRepartosMenuListener(e -> ejecutarIniciarEntregas());
     }
 
+    /**
+     * Inicializa de manera perezosa el subsistema de gestión histórica de pedidos,
+     * instanciando su controlador atómico y trayendo la interfaz gráfica al frente de la pantalla.
+     */
     private void ejecutarModuloPedidos() {
         ventanaPrincipal.clearLog();
         if (ventanaListaPedidos == null || !ventanaListaPedidos.isDisplayable()) {
@@ -58,6 +62,10 @@ public class ControladorPrincipal {
         }
     }
 
+    /**
+     * Despliega de forma independiente el catálogo de mantenimiento de repartidores,
+     * aislando su ciclo de vida y delegando las tareas de edición del CRUD en su controlador experto.
+     */
     private void ejecutarModuloRepartidores() {
         ventanaPrincipal.clearLog();
         if (ventanaListaRepartidores == null || !ventanaListaRepartidores.isDisplayable()) {
@@ -71,6 +79,10 @@ public class ControladorPrincipal {
         }
     }
 
+    /**
+     * Carga la bitácora relacional de asignaciones manuales en pantalla,
+     * inyectando la vista en su respectiva aduana de control para activar los filtros.
+     */
     private void ejecutarModuloEntregas() {
         ventanaPrincipal.clearLog();
         if (ventanaListaEntregas == null || !ventanaListaEntregas.isDisplayable()) {
@@ -84,6 +96,10 @@ public class ControladorPrincipal {
         }
     }
 
+    /**
+     * Instancia el controlador asíncrono secundario, enlaza la bitácora visual
+     * en tiempo real mediante una referencia de método y arranca la simulación concurrente multihilo.
+     */
     private void ejecutarIniciarEntregas() {
         ventanaPrincipal.setEstadoBotonSimulacion(false);
         ventanaPrincipal.clearLog();

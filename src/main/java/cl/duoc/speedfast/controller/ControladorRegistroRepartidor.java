@@ -23,6 +23,8 @@ public class ControladorRegistroRepartidor {
      * y activa la suscripción reactiva para los eventos de los botones Guardar y Atrás.
      *
      * @param ventanaRegistroRepartidor Instancia activa del formulario visual de nuevo repartidor.
+     * @param repartidorAEditar  Entidad cargada con los datos del conductor a modificar (null si es creación).
+     * @param controladorListaRepartidores  Referencia al controlador de la lista para coordinar la sincronización al cerrar.
      */
     public ControladorRegistroRepartidor(VentanaRegistroRepartidor ventanaRegistroRepartidor,
                                          Repartidor repartidorAEditar,

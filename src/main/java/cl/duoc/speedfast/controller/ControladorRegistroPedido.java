@@ -25,6 +25,8 @@ public class ControladorRegistroPedido {
      * y activa de forma reactiva la suscripción de los botones Guardar y Atrás.
      *
      * @param ventanaRegistroPedido Instancia activa del formulario visual de nuevo pedido.
+     * @param pedidoAEditar          Entidad cargada con los datos del pedido a modificar (null si se trata de un registro nuevo).
+     * @param controladorListaPedidos  Referencia al controlador maestro de la lista para coordinar la sincronización al cerrar.
      */
     public ControladorRegistroPedido(VentanaRegistroPedido ventanaRegistroPedido,
                                      Pedido pedidoAEditar,

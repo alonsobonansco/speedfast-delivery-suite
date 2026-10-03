@@ -96,6 +96,13 @@ public class EntregaDAO {
         return listaEntregas;
     }
 
+    /**
+     * Elimina permanentemente un registro de asignación de entrega mediante su clave primaria.
+     * Se agregó para evitar problemas de integridad relacional al eliminar pedidos o repartidores asociados.
+     *
+     * @param idEntrega Identificador numérico único de la entrega a eliminar físicamente en MySQL.
+     * @throws SQLException Si ocurre una falla de comunicación en el driver JDBC o restricciones relacionales.
+     */
     public void delete(int idEntrega) throws SQLException {
         String sql = "DELETE FROM entregas WHERE id = ?";
 

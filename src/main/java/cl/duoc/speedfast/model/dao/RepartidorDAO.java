@@ -60,6 +60,12 @@ public class RepartidorDAO {
         return listaRepartidores;
     }
 
+    /**
+     * Modifica el nombre de un repartidor existente en base a su identificador único.
+     *
+     * @param repartidor Objeto entidad que contiene el ID de búsqueda y las nuevas cadenas de texto.
+     * @throws SQLException Si falla la instrucción de actualización física en MySQL.
+     */
     public void update(Repartidor repartidor) throws SQLException {
         String sql = "UPDATE repartidores SET nombre = ? WHERE id = ?";
 
@@ -72,6 +78,12 @@ public class RepartidorDAO {
         }
     }
 
+    /**
+     * Elimina permanentemente un registro de la tabla de repartidores por su clave primaria.
+     *
+     * @param idRepartidor Coordenada numérica del ID único del trabajador a dar de baja.
+     * @throws SQLException Si se rompe una restricción de integridad referencial o falla JDBC.
+     */
     public void delete(int idRepartidor) throws SQLException {
         String sql = "DELETE FROM repartidores WHERE id = ?";
 
