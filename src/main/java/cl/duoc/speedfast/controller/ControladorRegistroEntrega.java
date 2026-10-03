@@ -29,8 +29,8 @@ public class ControladorRegistroEntrega {
      * Constructor principal que enlaza el formulario de asignación, gatilla los listeners
      * de los botones y pobla los componentes gráficos consultando de forma inicial los DAOs.
      *
-     * @param ventanaRegistroEntrega Instancia activa del formulario visual de asignación.
-     * @param controladorListaEntregas  Referencia al controlador de la lista histórica para coordinar la sincronización al cerrar.
+     * @param ventanaRegistroEntrega   Instancia activa del formulario visual de asignación.
+     * @param controladorListaEntregas Referencia al controlador de la lista histórica para coordinar la sincronización al cerrar.
      */
     public ControladorRegistroEntrega(VentanaRegistroEntrega ventanaRegistroEntrega,
                                       ControladorListaEntregas controladorListaEntregas) {
