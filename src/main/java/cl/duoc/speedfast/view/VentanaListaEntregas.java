@@ -39,7 +39,7 @@ public class VentanaListaEntregas extends JFrame {
     }
 
     private void inicializarComponentes() {
-        tituloLabel = new JLabel("Historial de Entregas Registradas", SwingConstants.CENTER);
+        tituloLabel = new JLabel("Administración de Entregas", SwingConstants.CENTER);
         tituloLabel.setFont(new Font("Arial", Font.BOLD, 18));
         tituloLabel.setBorder(BorderFactory.createEmptyBorder(15, 10, 5, 10));
 

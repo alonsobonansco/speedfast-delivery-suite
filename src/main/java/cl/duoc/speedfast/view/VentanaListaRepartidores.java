@@ -36,7 +36,7 @@ public class VentanaListaRepartidores extends JFrame {
     }
 
     private void inicializarComponentes() {
-        tituloLabel = new JLabel("Lista de Repartidores", SwingConstants.CENTER);
+        tituloLabel = new JLabel("Administración de Repartidores", SwingConstants.CENTER);
         tituloLabel.setFont(new Font("Arial", Font.BOLD, 18));
         tituloLabel.setBorder(BorderFactory.createEmptyBorder(15, 10, 5, 10));
 
