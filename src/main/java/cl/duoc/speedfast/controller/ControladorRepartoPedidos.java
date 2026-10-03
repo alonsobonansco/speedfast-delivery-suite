@@ -113,7 +113,7 @@ public class ControladorRepartoPedidos {
                 if (p.getEstadoPedido() == EstadoPedido.EN_REPARTO) {
                     for (Entrega e : listaEntregas) {
                         if (e.getIdPedido() == p.getIdPedido() && e.getIdRepartidor() == idRepartidor) {
-                            p.setEstadoPedido(EstadoPedido.ENTREGADO);
+                            listaPedidosEnSimulacion.remove(p);
                             return p;
                         }
                     }

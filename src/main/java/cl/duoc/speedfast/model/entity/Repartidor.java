@@ -110,9 +110,8 @@ public class Repartidor implements Runnable {
 
                     pedido.setEstadoPedido(ENTREGADO);
 
-                    controladorRepartoPedidos.escribirMensaje("[ENTREGA] Pedido #" + pedido.getIdPedido() + " ha sido entregado por [" + nombreRepartidor + "]");
-
                     controladorRepartoPedidos.registrarEntregaEnBD(pedido);
+                    controladorRepartoPedidos.escribirMensaje("[ENTREGA] Pedido #" + pedido.getIdPedido() + " ha sido entregado por [" + nombreRepartidor + "]");
 
                 } catch (InterruptedException e) {
                     controladorRepartoPedidos.escribirMensaje("Entrega interrumpida");
