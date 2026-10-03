@@ -139,7 +139,11 @@ public class VentanaRegistroEntrega extends JFrame {
     }
 
     public void limpiarFormulario() {
-        pedidoJComboBox.setSelectedIndex(0);
-        repartidorJComboBox.setSelectedIndex(0);
+        if (pedidoJComboBox.getItemCount() > 0) {
+            pedidoJComboBox.setSelectedIndex(0);
+        }
+        if (repartidorJComboBox.getItemCount() > 0) {
+            repartidorJComboBox.setSelectedIndex(0);
+        }
     }
 }
